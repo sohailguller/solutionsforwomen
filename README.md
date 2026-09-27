@@ -39,6 +39,14 @@ Add an entry to `src/data/events.ts`. It appears on the homepage and the Events 
 
 Astro creates the resized WebP versions at build time.
 
+## Brand
+
+The emblem is the Bay Bridge tower against a sun setting into the Bay, drawn from the organisation's original logo.
+
+- Logo files, with lettering converted to outlines, live in `public/brand/`. They are listed with colours and usage notes at `/brand`.
+- On the site, the emblem is the `src/components/Mark.astro` component. Use `ring` on dark backgrounds.
+- `sfw-mark-simple.svg` is the favicon version for small sizes.
+
 ## Donations
 
 The Donate buttons go to the organisation's existing PayPal donate page (`donateUrl` in `src/data/site.ts`). That page accepts PayPal, debit and credit cards, and recurring gifts.

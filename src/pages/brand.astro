@@ -1,0 +1,215 @@
+---
+import Base from '../layouts/Base.astro';
+
+const logos = [
+  { file: 'sfw-logo-horizontal.svg', name: 'Horizontal logo', note: 'For light backgrounds. The default for letterheads, emails and web.', dark: false },
+  { file: 'sfw-logo-horizontal-reversed.svg', name: 'Horizontal logo, reversed', note: 'For dark or photo backgrounds.', dark: true },
+  { file: 'sfw-logo-stacked.svg', name: 'Stacked logo', note: 'For square spaces: flyers, T-shirts, social posts.', dark: false },
+  { file: 'sfw-logo-stacked-reversed.svg', name: 'Stacked logo, reversed', note: 'For dark or photo backgrounds.', dark: true },
+  { file: 'sfw-mark.svg', name: 'Emblem', note: 'On its own for profile pictures and stickers.', dark: false },
+  { file: 'sfw-mark-simple.svg', name: 'Emblem, small sizes', note: 'Simplified for favicons and anything under 32 px.', dark: false },
+];
+
+const colors = [
+  { name: 'Bay Navy', hex: '#15264A', use: 'Emblem, footer, dark sections', ink: '#F8F4EC' },
+  { name: 'Bay Blue', hex: '#1F4FB5', use: 'Water in the emblem, links in focus', ink: '#F8F4EC' },
+  { name: 'Sunset', hex: '#E8A262', use: 'Sun in the emblem, highlights on navy', ink: '#1F1C18' },
+  { name: 'Rust', hex: '#A94A1C', use: 'Donate buttons and calls to action', ink: '#FFFFFF' },
+  { name: 'Paper', hex: '#F8F4EC', use: 'Page background', ink: '#1F1C18' },
+  { name: 'Ink', hex: '#1F1C18', use: 'Text', ink: '#F8F4EC' },
+];
+---
+
+<Base title="Brand assets" description="Solutions for Women logos, emblem, colours and typefaces for partners, press and volunteers.">
+  <header class="page-head wrap">
+    <span class="label">Brand assets</span>
+    <h1>Our logo and colours</h1>
+    <p class="lede">
+      For partners, press and volunteers making flyers or T-shirts. The emblem shows the Bay Bridge tower against a sun
+      setting into the Bay, drawn from our original logo.
+    </p>
+  </header>
+
+  <section class="wrap assets" aria-labelledby="logos-h">
+    <h2 id="logos-h" class="sub">Logos</h2>
+    <ul class="grid">
+      {
+        logos.map((l) => (
+          <li>
+            <div class:list={['swatch', { dark: l.dark }]}>
+              <img src={`/brand/${l.file}`} alt={l.name} loading="lazy" />
+            </div>
+            <h3>{l.name}</h3>
+            <p>{l.note}</p>
+            <a href={`/brand/${l.file}`} download>
+              Download SVG
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+    <p class="muted png">
+      Need a PNG? <a href="/brand/sfw-mark-512.png" download>Download the emblem at 512 px</a>.
+    </p>
+  </section>
+
+  <section class="section section--white" aria-labelledby="colors-h">
+    <div class="wrap">
+      <h2 id="colors-h" class="sub">Colours</h2>
+      <ul class="colors">
+        {
+          colors.map((c) => (
+            <li>
+              <span class="chip" style={`background:${c.hex};color:${c.ink}`}>
+                {c.hex}
+              </span>
+              <strong>{c.name}</strong>
+              <span class="muted">{c.use}</span>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  <section class="section wrap" aria-labelledby="type-h">
+    <h2 id="type-h" class="sub">Typefaces and usage</h2>
+    <div class="type">
+      <div>
+        <p class="specimen serif">Newsreader</p>
+        <p class="muted">Headings and the wordmark. Free from Google Fonts.</p>
+      </div>
+      <div>
+        <p class="specimen sans">Libre Franklin</p>
+        <p class="muted">Body text, buttons and forms. Free from Google Fonts.</p>
+      </div>
+    </div>
+    <ul class="rules">
+      <li>Leave clear space around the logo at least as wide as the emblem’s tower.</li>
+      <li>Don’t stretch, recolour, outline or add shadows to the logo.</li>
+      <li>Use the reversed versions on navy, dark colours and busy photos.</li>
+    </ul>
+  </section>
+</Base>
+
+<style>
+  .sub {
+    font-size: var(--step-2);
+    font-weight: 500;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--ink);
+  }
+  .assets {
+    padding-bottom: var(--section);
+  }
+  .grid {
+    display: grid;
+    gap: 2.5rem 2rem;
+    list-style: none;
+    margin: 2rem 0 0;
+    padding: 0;
+  }
+  @media (min-width: 48rem) {
+    .grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  .swatch {
+    display: grid;
+    place-items: center;
+    aspect-ratio: 16 / 9;
+    padding: 2rem;
+    background: var(--white);
+    border: 1px solid var(--rule);
+    margin-bottom: 1rem;
+  }
+  .swatch.dark {
+    background: var(--navy);
+    border-color: var(--navy);
+  }
+  .swatch img {
+    width: auto;
+    max-width: 80%;
+    height: 60%;
+  }
+  .grid h3 {
+    font-size: var(--step-1);
+    margin-bottom: 0.25rem;
+  }
+  .grid p {
+    color: var(--ink-2);
+    margin-bottom: 0.5rem;
+  }
+  .grid a,
+  .png a {
+    font-weight: 600;
+  }
+  .png {
+    margin-top: 2.5rem;
+  }
+  .colors {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem 1.5rem;
+    list-style: none;
+    margin: 2rem 0 0;
+    padding: 0;
+  }
+  @media (min-width: 48rem) {
+    .colors {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+  @media (min-width: 64rem) {
+    .colors {
+      grid-template-columns: repeat(6, 1fr);
+    }
+  }
+  .colors li {
+    display: grid;
+    gap: 0.25rem;
+  }
+  .chip {
+    display: flex;
+    align-items: flex-end;
+    height: 7rem;
+    padding: 0.75rem;
+    margin-bottom: 0.5rem;
+    font-size: var(--step--1);
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+    border: 1px solid var(--rule);
+  }
+  .colors .muted {
+    font-size: 0.95rem;
+  }
+  .type {
+    display: grid;
+    gap: 2rem;
+    margin: 2rem 0 3rem;
+  }
+  @media (min-width: 48rem) {
+    .type {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+  .specimen {
+    font-size: var(--step-4);
+    line-height: 1.1;
+    margin-bottom: 0.5rem;
+  }
+  .serif {
+    font-family: var(--serif);
+  }
+  .sans {
+    font-family: var(--sans);
+    font-weight: 500;
+  }
+  .rules {
+    padding-left: 1.2rem;
+    display: grid;
+    gap: 0.5rem;
+    color: var(--ink-2);
+    max-width: 40rem;
+  }
+</style>

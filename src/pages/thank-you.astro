@@ -1,10 +1,11 @@
 ---
 import Base from '../layouts/Base.astro';
+import Mark from '../components/Mark.astro';
 ---
 
 <Base title="Thank you" description="Thank you for contacting Solutions for Women.">
   <section class="wrap wrap--narrow ty">
-    <span class="label">Received</span>
+    <Mark class="page-mark" />
     <h1 data-msg-title>Thank you</h1>
     <p class="lede" data-msg-body>We have your details and will be in touch soon.</p>
     <div class="actions">
@@ -28,6 +29,11 @@ import Base from '../layouts/Base.astro';
 </script>
 
 <style>
+  .ty :global(.page-mark) {
+    width: 4rem;
+    height: 4rem;
+    margin-bottom: 2rem;
+  }
   .ty {
     padding-block: clamp(4rem, 10vw, 9rem);
   }

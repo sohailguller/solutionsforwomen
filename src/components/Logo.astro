@@ -1,4 +1,6 @@
 ---
+import Mark from './Mark.astro';
+
 interface Props {
   tone?: 'dark' | 'light';
 }
@@ -6,11 +8,7 @@ const { tone = 'dark' } = Astro.props;
 ---
 
 <a href="/" class:list={['logo', `logo--${tone}`]} aria-label="Solutions for Women, home">
-  <svg class="mark" viewBox="0 0 40 40" aria-hidden="true">
-    <circle cx="20" cy="20" r="18.75" fill="var(--mark-fill)" stroke="var(--mark-stroke)" stroke-width="1.5"></circle>
-    <path d="M20 1.25a18.75 18.75 0 0 1 0 37.5z" fill="#1f4fb5"></path>
-    <path d="M8.5 33.5c6-4.5 13-8 16.5-19.5" fill="none" stroke="#e8a262" stroke-width="3" stroke-linecap="round"></path>
-  </svg>
+  <Mark class="mark" ring={tone === 'light'} />
   <span class="words">
     <span class="name">Solutions <span class="for">for</span> Women</span>
     <span class="tag">Walking the road together</span>
@@ -24,17 +22,13 @@ const { tone = 'dark' } = Astro.props;
     gap: 0.7rem;
     text-decoration: none;
     color: var(--ink);
-    --mark-fill: var(--paper);
-    --mark-stroke: var(--ink);
   }
   .logo--light {
     color: var(--paper);
-    --mark-fill: var(--navy);
-    --mark-stroke: var(--paper);
   }
-  .mark {
-    width: 2.5rem;
-    height: 2.5rem;
+  .logo :global(.mark) {
+    width: 2.75rem;
+    height: 2.75rem;
     flex: none;
   }
   .words {
