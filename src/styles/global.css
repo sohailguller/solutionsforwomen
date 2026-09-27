@@ -1,0 +1,379 @@
+@import '@fontsource-variable/newsreader/opsz.css';
+@import '@fontsource-variable/newsreader/opsz-italic.css';
+@import '@fontsource-variable/libre-franklin';
+
+/* ---------------------------------------------------------------
+   Tokens
+   Warm paper and ink with one deep brand blue and one action colour,
+   both taken from the Solutions for Women logo (blue circle, amber road).
+   --------------------------------------------------------------- */
+:root {
+  --paper: #f8f4ec;
+  --paper-2: #efe8db;
+  --white: #ffffff;
+  --ink: #1f1c18;
+  --ink-2: #58524a;
+  --rule: #d9d0c1;
+  --navy: #15264a;
+  --navy-ink: #c9c2b5;
+  --blue: #1f4fb5;
+  --accent: #a94a1c;
+  --accent-dark: #8f3d15;
+  --amber: #e8a262;
+
+  --serif: 'Newsreader Variable', 'Iowan Old Style', Georgia, serif;
+  --sans: 'Libre Franklin Variable', 'Franklin Gothic', 'Helvetica Neue', Arial, sans-serif;
+
+  --step--1: 0.875rem;
+  --step-0: 1.0625rem;
+  --step-1: 1.25rem;
+  --step-2: clamp(1.375rem, 1.1rem + 0.9vw, 1.75rem);
+  --step-3: clamp(1.75rem, 1.3rem + 1.6vw, 2.5rem);
+  --step-4: clamp(2.25rem, 1.5rem + 2.8vw, 3.5rem);
+  --step-5: clamp(2.75rem, 1.6rem + 4.4vw, 5rem);
+
+  --gutter: clamp(1.25rem, 4vw, 3rem);
+  --max: 78rem;
+  --narrow: 44rem;
+  --section: clamp(4rem, 9vw, 8rem);
+  --header-h: 4.75rem;
+}
+
+/* ---------------------------------------------------------------
+   Base
+   --------------------------------------------------------------- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  scroll-padding-top: calc(var(--header-h) + 1rem);
+}
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--sans);
+  font-size: var(--step-0);
+  line-height: 1.65;
+  font-optical-sizing: auto;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+img,
+svg,
+video {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--serif);
+  font-weight: 400;
+  line-height: 1.12;
+  letter-spacing: -0.012em;
+  margin: 0 0 0.5em;
+  text-wrap: balance;
+}
+
+h1 {
+  font-size: var(--step-5);
+  line-height: 1.02;
+  letter-spacing: -0.022em;
+}
+h2 {
+  font-size: var(--step-4);
+}
+h3 {
+  font-size: var(--step-2);
+  font-weight: 500;
+  letter-spacing: -0.005em;
+}
+h4 {
+  font-size: var(--step-1);
+  font-weight: 500;
+}
+
+p {
+  margin: 0 0 1.1em;
+  text-wrap: pretty;
+}
+p:last-child {
+  margin-bottom: 0;
+}
+
+a {
+  color: inherit;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.18em;
+}
+a:hover {
+  text-decoration-thickness: 2px;
+}
+
+:focus-visible {
+  outline: 2px solid var(--blue);
+  outline-offset: 3px;
+}
+
+::selection {
+  background: var(--amber);
+  color: var(--ink);
+}
+
+hr {
+  border: 0;
+  border-top: 1px solid var(--rule);
+  margin: 0;
+}
+
+/* ---------------------------------------------------------------
+   Layout
+   --------------------------------------------------------------- */
+.wrap {
+  width: 100%;
+  max-width: calc(var(--max) + 2 * var(--gutter));
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+.wrap--narrow {
+  max-width: calc(var(--narrow) + 2 * var(--gutter));
+}
+
+.section {
+  padding-block: var(--section);
+}
+.section + .section--rule {
+  border-top: 1px solid var(--rule);
+}
+.section--tint {
+  background: var(--paper-2);
+}
+.section--navy {
+  background: var(--navy);
+  color: var(--paper);
+}
+.section--white {
+  background: var(--white);
+}
+
+.lede {
+  font-family: var(--serif);
+  font-size: var(--step-2);
+  line-height: 1.4;
+  letter-spacing: -0.005em;
+}
+
+.muted {
+  color: var(--ink-2);
+}
+
+.label {
+  display: block;
+  font-family: var(--sans);
+  font-size: var(--step--1);
+  font-weight: 600;
+  color: var(--accent);
+  margin-bottom: 1rem;
+}
+.section--navy .label {
+  color: var(--amber);
+}
+
+.prose {
+  max-width: 40rem;
+}
+.prose p {
+  margin-bottom: 1.2em;
+}
+
+.visually-hidden {
+  position: absolute !important;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ---------------------------------------------------------------
+   Buttons and links
+   --------------------------------------------------------------- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  min-height: 3rem;
+  padding: 0.75rem 1.4rem;
+  border: 1px solid transparent;
+  border-radius: 2px;
+  font-family: var(--sans);
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1.2;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+}
+.btn--primary {
+  background: var(--accent);
+  color: var(--white);
+}
+.btn--primary:hover {
+  background: var(--accent-dark);
+}
+.btn--outline {
+  border-color: currentColor;
+  color: inherit;
+  background: transparent;
+}
+.btn--outline:hover {
+  background: var(--ink);
+  border-color: var(--ink);
+  color: var(--paper);
+}
+.section--navy .btn--outline:hover,
+.on-dark .btn--outline:hover {
+  background: var(--paper);
+  border-color: var(--paper);
+  color: var(--navy);
+}
+.btn--light {
+  background: var(--paper);
+  color: var(--navy);
+}
+.btn--light:hover {
+  background: var(--white);
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 2rem;
+}
+
+.more {
+  display: inline-block;
+  font-weight: 600;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.3em;
+}
+.more:hover {
+  text-decoration-thickness: 2px;
+}
+
+/* ---------------------------------------------------------------
+   Figures
+   --------------------------------------------------------------- */
+figure {
+  margin: 0;
+}
+figcaption {
+  margin-top: 0.65rem;
+  font-size: var(--step--1);
+  line-height: 1.45;
+  color: var(--ink-2);
+}
+.section--navy figcaption {
+  color: var(--navy-ink);
+}
+
+.img-cover {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* ---------------------------------------------------------------
+   Page header used on interior pages
+   --------------------------------------------------------------- */
+.page-head {
+  padding-top: clamp(3rem, 7vw, 6rem);
+  padding-bottom: clamp(2.5rem, 5vw, 4rem);
+}
+.page-head h1 {
+  max-width: 16ch;
+  margin-bottom: 0;
+}
+.page-head .lede {
+  max-width: 38rem;
+  margin-top: 1.5rem;
+  color: var(--ink-2);
+}
+
+/* ---------------------------------------------------------------
+   Forms
+   --------------------------------------------------------------- */
+.form {
+  display: grid;
+  gap: 1.1rem;
+}
+.form-row {
+  display: grid;
+  gap: 1.1rem;
+}
+@media (min-width: 40rem) {
+  .form-row {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+.field {
+  display: grid;
+  gap: 0.4rem;
+}
+.field label {
+  font-size: var(--step--1);
+  font-weight: 600;
+}
+.field .opt {
+  font-weight: 400;
+  color: var(--ink-2);
+}
+.field input,
+.field textarea,
+.field select {
+  width: 100%;
+  min-height: 3rem;
+  padding: 0.7rem 0.85rem;
+  border: 1px solid #b9ae9c;
+  border-radius: 2px;
+  background: var(--white);
+  color: var(--ink);
+  font: inherit;
+  font-size: 1rem;
+}
+.field textarea {
+  min-height: 9rem;
+  resize: vertical;
+}
+.field input:focus,
+.field textarea:focus,
+.field select:focus {
+  outline: 2px solid var(--blue);
+  outline-offset: 0;
+  border-color: var(--blue);
+}
+.form .hp {
+  position: absolute;
+  left: -9999px;
+}
+.form-note {
+  font-size: var(--step--1);
+  color: var(--ink-2);
+}

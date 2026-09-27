@@ -1,0 +1,160 @@
+---
+import Base from '../../layouts/Base.astro';
+import Photo from '../../components/Photo.astro';
+import VolunteerForm from '../../components/VolunteerForm.astro';
+import { events, type EventItem } from '../../data/events';
+import { site, tel } from '../../data/site';
+
+export function getStaticPaths() {
+  return events.map((event) => ({ params: { slug: event.slug }, props: { event } }));
+}
+
+const { event } = Astro.props as { event: EventItem };
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'Event',
+  name: event.title,
+  startDate: event.start,
+  endDate: event.end,
+  eventAttendanceMode: 'https://schema.org/OfflineEventAttendanceMode',
+  eventStatus: 'https://schema.org/EventScheduled',
+  location: { '@type': 'Place', name: "Fisherman's Wharf", address: 'Fisherman’s Wharf, San Francisco, CA' },
+  description: event.summary,
+  organizer: { '@type': 'Organization', name: site.name, url: site.url },
+};
+---
+
+<Base title={event.title} description={`${event.summary} ${event.dateLabel}, ${event.location}.`} image={event.image}>
+  <script type="application/ld+json" set:html={JSON.stringify(schema)} />
+  <article class="wrap ev">
+    <nav class="crumb" aria-label="Breadcrumb"><a href="/events">All events</a></nav>
+    <div class="ev-grid">
+      <div class="ev-main">
+        <h1>{event.title}</h1>
+        <p class="lede">{event.summary}</p>
+        <dl class="facts">
+          <div><dt>When</dt><dd>{event.dateLabel}<br />{event.timeLabel}</dd></div>
+          <div><dt>Where</dt><dd>{event.location}</dd></div>
+          <div>
+            <dt>Questions</dt>
+            <dd>
+              {site.director.name}<br />
+              <a href={`mailto:${site.director.email}`}>{site.director.email}</a><br />
+              <a href={tel(site.director.phone)}>{site.director.phone}</a>
+            </dd>
+          </div>
+        </dl>
+        <div class="prose details">
+          {event.details.map((d) => <p>{d}</p>)}
+        </div>
+
+        {
+          event.volunteer && (
+            <section id="volunteer" class="signup" aria-labelledby="vol-h">
+              <h2 id="vol-h">We need volunteers!</h2>
+              <p class="muted">Tell us when you can help and we will be in touch to confirm your shift.</p>
+              <VolunteerForm event={event.title} />
+            </section>
+          )
+        }
+      </div>
+      <aside class="ev-side">
+        <figure class="flyer">
+          <Photo src={event.image} alt={event.imageAlt} sizes="(min-width: 64rem) 26rem, 90vw" widths={[400, 496]} loading="eager" />
+        </figure>
+        <figure class="side-pic">
+          <Photo src="events/fleet-week-01" alt="A volunteer at the Solutions for Women Fleet Week booth" sizes="(min-width: 64rem) 26rem, 90vw" widths={[400, 640, 900]} />
+          <figcaption>Volunteering at Fleet Week 2024.</figcaption>
+        </figure>
+      </aside>
+    </div>
+  </article>
+</Base>
+
+<style>
+  .ev {
+    padding-top: clamp(2rem, 4vw, 3rem);
+    padding-bottom: var(--section);
+  }
+  .crumb {
+    margin-bottom: clamp(2rem, 4vw, 3rem);
+    font-size: var(--step--1);
+    font-weight: 600;
+  }
+  .crumb a {
+    text-decoration: none;
+  }
+  .crumb a::before {
+    content: '← ';
+  }
+  .crumb a:hover {
+    text-decoration: underline;
+  }
+  .ev-grid {
+    display: grid;
+    gap: 3rem;
+    align-items: start;
+  }
+  .ev-main {
+    max-width: 44rem;
+  }
+  .ev-main .lede {
+    margin-top: 1.25rem;
+    color: var(--ink-2);
+  }
+  .facts {
+    display: grid;
+    gap: 1.25rem;
+    margin: 2.5rem 0;
+    padding: 1.75rem 0;
+    border-block: 1px solid var(--rule);
+  }
+  .facts div {
+    display: grid;
+    grid-template-columns: 7rem 1fr;
+    gap: 1rem;
+  }
+  .facts dt {
+    color: var(--ink-2);
+  }
+  .facts dd {
+    margin: 0;
+    min-width: 0;
+    overflow-wrap: anywhere;
+  }
+  .details p {
+    color: var(--ink-2);
+  }
+  .signup {
+    margin-top: 3.5rem;
+    padding: clamp(1.5rem, 4vw, 2.75rem);
+    background: var(--white);
+    border: 1px solid var(--rule);
+  }
+  .signup h2 {
+    font-size: var(--step-3);
+    margin-bottom: 0.5rem;
+  }
+  .signup > p {
+    margin-bottom: 2rem;
+  }
+  .ev-side {
+    display: grid;
+    gap: 2rem;
+    max-width: 26rem;
+  }
+  .flyer {
+    box-shadow: 0 1px 2px rgba(31, 28, 24, 0.14);
+  }
+  @media (min-width: 64rem) {
+    .ev-grid {
+      grid-template-columns: 1fr 24rem;
+      gap: 6rem;
+    }
+    .ev-side {
+      position: sticky;
+      top: calc(var(--header-h) + 2rem);
+    }
+  }
+</style>

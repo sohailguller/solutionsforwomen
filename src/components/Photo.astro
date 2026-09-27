@@ -1,0 +1,44 @@
+---
+import { Image } from 'astro:assets';
+import { photo } from '../lib/photos';
+
+interface Props {
+  src: string;
+  alt: string;
+  sizes?: string;
+  widths?: number[];
+  class?: string;
+  loading?: 'lazy' | 'eager';
+  fetchpriority?: 'high' | 'low' | 'auto';
+  position?: string;
+}
+
+const {
+  src,
+  alt,
+  sizes = '(min-width: 78rem) 50vw, 100vw',
+  widths = [480, 800, 1200, 1600],
+  class: className,
+  loading = 'lazy',
+  fetchpriority,
+  position,
+} = Astro.props;
+
+const img = photo(src);
+const usable = widths.filter((w) => w <= img.width);
+if (!usable.length || usable[usable.length - 1] < img.width) usable.push(img.width);
+---
+
+<Image
+  src={img}
+  alt={alt}
+  widths={usable}
+  sizes={sizes}
+  format="webp"
+  quality={78}
+  loading={loading}
+  decoding="async"
+  fetchpriority={fetchpriority}
+  class={className}
+  style={position ? `object-position:${position}` : undefined}
+/>

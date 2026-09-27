@@ -1,0 +1,271 @@
+---
+import Base from '../../layouts/Base.astro';
+import Photo from '../../components/Photo.astro';
+import DonateBand from '../../components/DonateBand.astro';
+import { upcoming } from '../../data/events';
+
+const inspired = [
+  { key: 'events/inspired-01', alt: 'A member holding her award and bouquet' },
+  { key: 'events/inspired-02', alt: 'A member in pink holding her certificate' },
+  { key: 'events/inspired-03', alt: 'A member holding her Inspiring Change award' },
+  { key: 'events/inspired-04', alt: 'A speaker at the podium' },
+  { key: 'events/inspired-05', alt: 'Community Appreciation Awards ceremony on stage' },
+  { key: 'events/inspired-06', alt: 'Members at a street event' },
+  { key: 'events/inspired-07', alt: 'A member holding a glass award' },
+];
+
+const past = [
+  { title: 'Black Women in Leadership Retreat', year: '2025', img: 'gallery/retreat-2025/01', href: '/gallery#retreat-2025' },
+  { title: "Women's Day Event", year: '', img: 'gallery/womens-day/04', href: '/gallery#womens-day' },
+  { title: 'Christmas Brunch', year: '2024', img: 'gallery/christmas-brunch-2024/01', href: '/gallery#christmas-brunch-2024' },
+  { title: 'Fleet Week', year: '2024', img: 'events/fleet-week-02', href: '/gallery#fleet-week-2024' },
+  { title: "Women's Equality Day", year: '2024', img: 'gallery/equality-day-2024/01', href: '/gallery#equality-day-2024' },
+];
+---
+
+<Base
+  title="Events"
+  description="Upcoming Solutions for Women events, volunteer opportunities and community gatherings in San Francisco."
+  image="events/fleet-week-02"
+>
+  <header class="page-head wrap">
+    <span class="label">Events</span>
+    <h1>Register and help make a change</h1>
+  </header>
+
+  <section class="wrap listing" aria-labelledby="up-h">
+    <h2 id="up-h" class="sub">Upcoming</h2>
+    {
+      upcoming.length === 0 ? (
+        <p class="muted">
+          New events are announced in our monthly email. Sign up at the bottom of this page to hear about them first.
+        </p>
+      ) : (
+        upcoming.map((e) => (
+          <article class="event">
+            <div class="date" aria-hidden="true">
+              <span class="m">{new Date(e.start).toLocaleString('en-US', { month: 'short', timeZone: 'America/Los_Angeles' })}</span>
+              <span class="d">
+                {new Date(e.start).toLocaleString('en-US', { day: 'numeric', timeZone: 'America/Los_Angeles' })}–
+                {new Date(e.end).toLocaleString('en-US', { day: 'numeric', timeZone: 'America/Los_Angeles' })}
+              </span>
+            </div>
+            <div class="body">
+              <h3>
+                <a href={`/events/${e.slug}`}>{e.title}</a>
+              </h3>
+              <p class="summary">{e.summary}</p>
+              <dl>
+                <div>
+                  <dt>When</dt>
+                  <dd>
+                    {e.dateLabel}, {e.timeLabel}
+                  </dd>
+                </div>
+                <div>
+                  <dt>Where</dt>
+                  <dd>{e.location}</dd>
+                </div>
+              </dl>
+              <div class="actions">
+                <a class="btn btn--primary" href={`/events/${e.slug}#volunteer`}>
+                  Sign up to volunteer
+                </a>
+                <a class="btn btn--outline" href={`/events/${e.slug}`}>
+                  Details
+                </a>
+              </div>
+            </div>
+            <figure class="pic">
+              <Photo src={e.image} alt={e.imageAlt} sizes="(min-width: 64rem) 20rem, 60vw" widths={[320, 496]} />
+            </figure>
+          </article>
+        ))
+      )
+    }
+  </section>
+
+  <section class="section past" aria-labelledby="past-h">
+    <div class="wrap">
+      <h2 id="past-h" class="sub">Recent events</h2>
+      <ul class="past-list">
+        {
+          past.map((p) => (
+            <li>
+              <a href={p.href}>
+                <span class="pp">
+                  <Photo src={p.img} alt="" sizes="(min-width: 64rem) 20vw, 50vw" widths={[320, 480, 640]} class="img-cover" />
+                </span>
+                <span class="pt">{p.title}</span>
+                {p.year && <span class="py">{p.year}</span>}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  <section class="section section--white" aria-labelledby="insp-h">
+    <div class="wrap">
+      <h2 id="insp-h">Get inspired</h2>
+      <p class="muted insp-intro">Honors, awards and moments from our community.</p>
+      <div class="insp">
+        {
+          inspired.map((p) => (
+            <figure>
+              <Photo src={p.key} alt={p.alt} sizes="(min-width: 64rem) 25vw, 50vw" widths={[320, 480, 720]} class="img-cover" />
+            </figure>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <DonateBand />
+</Base>
+
+<style>
+  .sub {
+    font-size: var(--step-2);
+    font-weight: 500;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--ink);
+    margin-bottom: 0;
+  }
+  .listing {
+    padding-bottom: var(--section);
+  }
+  .event {
+    display: grid;
+    gap: 1.5rem 2.5rem;
+    padding-top: 2.5rem;
+  }
+  .date {
+    display: grid;
+    align-content: start;
+    font-family: var(--serif);
+    line-height: 1;
+  }
+  .date .m {
+    font-size: var(--step-1);
+    color: var(--accent);
+  }
+  .date .d {
+    font-size: var(--step-4);
+    letter-spacing: -0.02em;
+  }
+  .body h3 {
+    font-size: var(--step-4);
+    font-weight: 400;
+    margin-bottom: 1rem;
+  }
+  .body h3 a {
+    text-decoration: none;
+  }
+  .body h3 a:hover {
+    text-decoration: underline;
+    text-decoration-thickness: 2px;
+  }
+  .summary {
+    font-size: var(--step-1);
+    max-width: 34rem;
+  }
+  dl {
+    display: grid;
+    gap: 0.75rem;
+    margin: 1.5rem 0 0;
+    max-width: 34rem;
+  }
+  dl div {
+    display: grid;
+    grid-template-columns: 5rem 1fr;
+    gap: 1rem;
+  }
+  dt {
+    color: var(--ink-2);
+  }
+  dd {
+    margin: 0;
+  }
+  .pic {
+    max-width: 18rem;
+    box-shadow: 0 1px 2px rgba(31, 28, 24, 0.14);
+  }
+  @media (min-width: 64rem) {
+    .event {
+      grid-template-columns: 9rem 1fr 18rem;
+    }
+  }
+
+  .past-list {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem 1rem;
+    list-style: none;
+    margin: 2.5rem 0 0;
+    padding: 0;
+  }
+  .past-list a {
+    display: grid;
+    text-decoration: none;
+  }
+  .pp {
+    display: block;
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+    background: var(--paper-2);
+    margin-bottom: 0.9rem;
+  }
+  .pt {
+    font-family: var(--serif);
+    font-size: var(--step-1);
+    line-height: 1.25;
+  }
+  .past-list a:hover .pt {
+    text-decoration: underline;
+  }
+  .py {
+    font-size: var(--step--1);
+    color: var(--ink-2);
+  }
+  @media (min-width: 64rem) {
+    .past-list {
+      grid-template-columns: repeat(5, 1fr);
+      gap: 1.5rem;
+    }
+  }
+
+  .insp-intro {
+    font-size: var(--step-1);
+    margin-bottom: 2.5rem;
+  }
+  .insp {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.5rem;
+  }
+  .insp figure {
+    aspect-ratio: 3 / 4;
+    overflow: hidden;
+    background: var(--paper-2);
+  }
+  .insp figure:first-child {
+    grid-column: span 2;
+    aspect-ratio: 4 / 3;
+  }
+  @media (min-width: 64rem) {
+    .insp {
+      grid-template-columns: repeat(4, 1fr);
+      grid-auto-rows: 22rem;
+    }
+    .insp figure,
+    .insp figure:first-child {
+      aspect-ratio: auto;
+      grid-column: auto;
+    }
+    .insp figure:nth-child(5) {
+      grid-column: span 2;
+    }
+  }
+</style>

@@ -1,0 +1,164 @@
+---
+import Base from '../layouts/Base.astro';
+import Photo from '../components/Photo.astro';
+import { site, tel } from '../data/site';
+---
+
+<Base
+  title="Support Us"
+  description="Make a tax-deductible donation to Solutions for Women. Your gift helps women move from crisis to confidence. EIN 45-5163133."
+  image="home/slide-holiday"
+>
+  <header class="page-head wrap">
+    <span class="label">Support us</span>
+    <h1>Together, we’re creating solutions</h1>
+  </header>
+
+  <section class="wrap give">
+    <div class="give-copy">
+      <p class="lede">
+        We are a community-powered nonprofit, and we rely on the compassion of donors like you. Your gift today helps
+        women move from crisis to confidence, and reminds them they are not alone.
+      </p>
+      <p>
+        Your donation helps us empower women and expand our reach. Please consider giving today to make a difference in
+        the lives of women everywhere.
+      </p>
+    </div>
+
+    <aside class="give-card" aria-labelledby="give-h">
+      <h2 id="give-h">Make your tax-deductible donation now</h2>
+      <p>Give a one-time gift or become a monthly supporter to sustain our work year-round.</p>
+      <a class="btn btn--primary btn--block" href={site.donateUrl} rel="noopener">Donate online</a>
+      <p class="fine">
+        You will complete your gift securely on PayPal, by debit or credit card or with a PayPal account, and can choose to make it a recurring donation.
+      </p>
+      <p class="fine">
+        Solutions for Women is a registered 501(c)(3) charity, EIN {site.ein}. Donations are tax-deductible to the extent
+        allowed by law.
+      </p>
+    </aside>
+  </section>
+
+  <figure class="wrap collage">
+    <Photo src="home/slide-holiday" alt="Members of Solutions for Women smiling together inside a festive holiday frame" sizes="(min-width: 78rem) 78rem, 100vw" widths={[640, 960, 1440, 1800]} />
+  </figure>
+
+  <section class="section section--white" aria-labelledby="ways-h">
+    <div class="wrap">
+      <h2 id="ways-h">Let's make a change</h2>
+      <p class="muted ways-intro">Here are some ways you can help.</p>
+      <ul class="ways">
+        <li>
+          <h3>Online</h3>
+          <p>Make a tax-deductible donation, one time or monthly.</p>
+          <a class="more" href={site.donateUrl} rel="noopener">Donate online</a>
+        </li>
+        <li>
+          <h3>Volunteer</h3>
+          <p>Help at our community events, like Fleet Week at Fisherman's Wharf.</p>
+          <a class="more" href="/events">See volunteer opportunities</a>
+        </li>
+        <li>
+          <h3>Partner with us</h3>
+          <p>Organizations and funders can reach our Board President, {site.director.name}, directly.</p>
+          <a class="more" href={`mailto:${site.director.email}`}>{site.director.email}</a>
+        </li>
+      </ul>
+      <p class="contact-line">
+        Questions about giving? Email <a href={`mailto:${site.email}`}>{site.email}</a> or call{' '}
+        <a href={tel(site.phone)}>{site.phone}</a>.
+      </p>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .give {
+    display: grid;
+    gap: 3rem;
+    align-items: start;
+    padding-bottom: clamp(3rem, 6vw, 5rem);
+  }
+  .give-copy {
+    max-width: 38rem;
+  }
+  .give-copy .lede {
+    margin-bottom: 1.5rem;
+  }
+  .give-copy p:not(.lede) {
+    color: var(--ink-2);
+  }
+  .give-card {
+    padding: clamp(1.75rem, 4vw, 2.75rem);
+    background: var(--white);
+    border: 1px solid var(--rule);
+  }
+  .give-card h2 {
+    font-size: var(--step-3);
+  }
+  .give-card > p {
+    color: var(--ink-2);
+  }
+  .btn--block {
+    width: 100%;
+    margin: 1.5rem 0;
+    min-height: 3.5rem;
+    font-size: 1.0625rem;
+  }
+  .fine {
+    font-size: var(--step--1);
+    line-height: 1.5;
+    margin-bottom: 0.75rem;
+  }
+  @media (min-width: 64rem) {
+    .give {
+      grid-template-columns: 7fr 5fr;
+      gap: 5rem;
+    }
+  }
+
+  .collage {
+    padding-bottom: var(--section);
+  }
+
+  .ways-intro {
+    font-size: var(--step-1);
+  }
+  .ways {
+    display: grid;
+    gap: 0;
+    list-style: none;
+    margin: 2.5rem 0 0;
+    padding: 0;
+    border-top: 1px solid var(--ink);
+  }
+  .ways li {
+    padding: 2rem 0;
+    border-bottom: 1px solid var(--rule);
+  }
+  .ways h3 {
+    font-size: var(--step-2);
+    margin-bottom: 0.5rem;
+  }
+  .ways p {
+    color: var(--ink-2);
+    margin-bottom: 1rem;
+  }
+  @media (min-width: 64rem) {
+    .ways {
+      grid-template-columns: repeat(3, 1fr);
+      gap: 3rem;
+      border-top: 0;
+    }
+    .ways li {
+      border-top: 1px solid var(--ink);
+      border-bottom: 0;
+      padding-bottom: 0;
+    }
+  }
+  .contact-line {
+    margin-top: 3rem;
+    color: var(--ink-2);
+  }
+</style>

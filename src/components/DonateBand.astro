@@ -1,0 +1,65 @@
+---
+import Photo from './Photo.astro';
+
+interface Props {
+  heading?: string;
+  text?: string;
+}
+const {
+  heading = 'We need your support today',
+  text = 'Your donation helps us empower women and expand our reach. Please consider giving today to make a difference in the lives of women everywhere.',
+} = Astro.props;
+---
+
+<section class="band" aria-labelledby="donate-band-h">
+  <div class="wrap grid">
+    <div class="copy">
+      <h2 id="donate-band-h">{heading}</h2>
+      <p>{text}</p>
+      <div class="actions">
+        <a class="btn btn--primary" href="/support-us">Donate</a>
+        <a class="btn btn--outline" href="/events">Volunteer at an event</a>
+      </div>
+    </div>
+    <figure class="pic">
+      <Photo
+        src="support/transitional"
+        alt="Members of Solutions for Women together at a community gathering"
+        sizes="(min-width: 64rem) 40vw, 100vw"
+        class="img-cover"
+        position="50% 15%"
+      />
+    </figure>
+  </div>
+</section>
+
+<style>
+  .band {
+    background: var(--paper-2);
+    border-top: 1px solid var(--rule);
+  }
+  .grid {
+    display: grid;
+    gap: 2.5rem;
+    padding-block: clamp(3.5rem, 7vw, 6rem);
+    align-items: center;
+  }
+  .copy {
+    max-width: 34rem;
+  }
+  .copy p {
+    color: var(--ink-2);
+    font-size: var(--step-1);
+    line-height: 1.55;
+  }
+  .pic {
+    aspect-ratio: 16 / 10;
+    overflow: hidden;
+  }
+  @media (min-width: 64rem) {
+    .grid {
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+    }
+  }
+</style>

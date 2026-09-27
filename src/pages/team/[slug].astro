@@ -1,0 +1,162 @@
+---
+import Base from '../../layouts/Base.astro';
+import Photo from '../../components/Photo.astro';
+import { board, type BoardMember } from '../../data/board';
+
+export function getStaticPaths() {
+  return board.map((member) => ({ params: { slug: member.slug }, props: { member } }));
+}
+
+const { member } = Astro.props as { member: BoardMember };
+const others = board.filter((m) => m.slug !== member.slug);
+const summary = member.bio[0] ?? `${member.name}, ${member.role} of Solutions for Women.`;
+---
+
+<Base
+  title={`${member.name}, ${member.role}`}
+  description={summary.length > 158 ? summary.slice(0, 155).replace(/\s\S*$/, '') + '…' : summary}
+  image={`board/${member.slug}`}
+>
+  <article class="wrap bio">
+    <nav class="crumb" aria-label="Breadcrumb">
+      <a href="/who-we-are#board">Board members</a>
+    </nav>
+    <div class="bio-grid">
+      <figure class="portrait">
+        <Photo src={`board/${member.slug}`} alt={`Portrait of ${member.name}`} sizes="(min-width: 64rem) 30vw, 100vw" widths={[400, 640, 900]} class="img-cover" position="50% 25%" loading="eager" />
+      </figure>
+      <div class="text">
+        <h1>{member.name}</h1>
+        <p class="role">{member.role}</p>
+        {member.quote && <blockquote class="pull">{member.quote}</blockquote>}
+        {member.bio.length > 0 ? (
+          <div class="prose">
+            {member.bio.map((p) => (
+              <p>{p}</p>
+            ))}
+          </div>
+        ) : (
+          <p class="muted">A full biography is coming soon.</p>
+        )}
+      </div>
+    </div>
+  </article>
+
+  <section class="section section--white more-board" aria-labelledby="more-h">
+    <div class="wrap">
+      <h2 id="more-h">More of our board</h2>
+      <ul>
+        {
+          others.map((m) => (
+            <li>
+              <a href={`/team/${m.slug}`}>
+                <span class="n">{m.name}</span>
+                <span class="r">{m.role}</span>
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .bio {
+    padding-top: clamp(2rem, 4vw, 3rem);
+    padding-bottom: var(--section);
+  }
+  .crumb {
+    margin-bottom: clamp(2rem, 4vw, 3rem);
+    font-size: var(--step--1);
+    font-weight: 600;
+  }
+  .crumb a::before {
+    content: '← ';
+  }
+  .crumb a {
+    text-decoration: none;
+  }
+  .crumb a:hover {
+    text-decoration: underline;
+  }
+  .bio-grid {
+    display: grid;
+    gap: 2.5rem;
+    align-items: start;
+  }
+  .portrait {
+    aspect-ratio: 4 / 5;
+    overflow: hidden;
+    background: var(--paper-2);
+    max-width: 28rem;
+  }
+  .text h1 {
+    font-size: var(--step-5);
+    margin-bottom: 0.4rem;
+  }
+  .role {
+    font-size: var(--step-1);
+    color: var(--ink-2);
+    margin-bottom: 2rem;
+  }
+  .pull {
+    margin: 0 0 2.25rem;
+    padding: 0;
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: var(--step-2);
+    line-height: 1.35;
+    max-width: 36rem;
+  }
+  .pull::before {
+    content: '“';
+  }
+  .pull::after {
+    content: '”';
+  }
+  .prose p {
+    color: var(--ink-2);
+  }
+  @media (min-width: 64rem) {
+    .bio-grid {
+      grid-template-columns: 4fr 7fr;
+      gap: 5rem;
+    }
+    .portrait {
+      position: sticky;
+      top: calc(var(--header-h) + 2rem);
+    }
+  }
+
+  .more-board h2 {
+    font-size: var(--step-3);
+  }
+  .more-board ul {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
+    list-style: none;
+    margin: 2rem 0 0;
+    padding: 0;
+    border-top: 1px solid var(--rule);
+  }
+  .more-board li {
+    border-bottom: 1px solid var(--rule);
+  }
+  .more-board a {
+    display: grid;
+    padding: 1.1rem 0;
+    text-decoration: none;
+  }
+  .more-board .n {
+    font-family: var(--serif);
+    font-size: var(--step-1);
+  }
+  .more-board a:hover .n {
+    text-decoration: underline;
+  }
+  .more-board .r {
+    font-size: var(--step--1);
+    color: var(--ink-2);
+  }
+</style>
