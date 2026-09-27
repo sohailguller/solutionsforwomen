@@ -63,3 +63,11 @@ If the site is hosted somewhere other than Netlify, point each form's `action` a
 1. Connect this repository in Netlify.
 2. Point the `solutionsforwomen.net` domain at Netlify.
 3. Once DNS has switched over, cancel the Wix plan.
+
+## Preview on GitHub Pages
+
+Every push to `claude/solutions-women-redesign-3kz2qf` publishes a preview to https://sohailguller.github.io/solutionsforwomen using `.github/workflows/pages.yml`.
+
+- The preview build sets `BASE_PATH`, and `scripts/rebase.mjs` prefixes internal links with it.
+- The preview is hidden from search engines, and its forms are switched off because Netlify Forms only work on Netlify.
+- If a deploy fails with "Pages not enabled", open **Settings, Pages** in the repository, set **Source** to **GitHub Actions**, then re-run the workflow.

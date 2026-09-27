@@ -14,7 +14,9 @@ interface Props {
 
 const { title, description = site.description, image = 'home/hero-retreat-2022' } = Astro.props;
 const fullTitle = title ? `${title} | ${site.name}` : `${site.name} | Women's support and empowerment in San Francisco`;
-const canonical = new URL(Astro.url.pathname.replace(/\.html$/, '').replace(/\/index$/, '') || '/', site.url);
+const basePath = import.meta.env.BASE_URL.replace(/\/$/, '');
+const canonical = new URL(Astro.url.pathname.slice(basePath.length).replace(/\.html$/, '').replace(/\/index$/, '') || '/', site.url);
+const preview = import.meta.env.PUBLIC_PREVIEW === 'true';
 const og = await getImage({ src: photo(image), width: 1200, format: 'jpg' });
 
 const org = {
@@ -43,12 +45,13 @@ const org = {
     <link rel="icon" href="/favicon.png" type="image/png" sizes="192x192" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <meta name="theme-color" content="#f8f4ec" />
+    {preview && <meta name="robots" content="noindex, nofollow" />}
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content={site.name} />
     <meta property="og:title" content={fullTitle} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
-    <meta property="og:image" content={new URL(og.src, site.url)} />
+    <meta property="og:image" content={new URL(og.src, Astro.site)} />
     <meta name="twitter:card" content="summary_large_image" />
     <link rel="sitemap" href="/sitemap-index.xml" />
     <script type="application/ld+json" set:html={JSON.stringify(org)} />
@@ -60,6 +63,21 @@ const org = {
       <slot />
     </main>
     <Footer />
+    {
+      preview && (
+        <script is:inline>
+          document.querySelectorAll('form[data-netlify]').forEach(function (f) {
+            var btn = f.querySelector('button[type=submit]');
+            if (btn) btn.disabled = true;
+            var note = document.createElement('p');
+            note.className = 'form-note';
+            note.textContent = 'This is a preview site, so forms are switched off. They will work once the site is live.';
+            (btn ? btn.parentNode : f).appendChild(note);
+            f.addEventListener('submit', function (e) { e.preventDefault(); });
+          });
+        </script>
+      )
+    }
   </body>
 </html>
 
