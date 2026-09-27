@@ -1,6 +1,7 @@
 ---
 import Base from '../layouts/Base.astro';
 import Photo from '../components/Photo.astro';
+import Mark from '../components/Mark.astro';
 import { site, tel } from '../data/site';
 ---
 
@@ -27,6 +28,7 @@ import { site, tel } from '../data/site';
     </div>
 
     <aside class="give-card" aria-labelledby="give-h">
+      <Mark class="give-mark" />
       <h2 id="give-h">Make your tax-deductible donation now</h2>
       <p>Give a one-time gift or become a monthly supporter to sustain our work year-round.</p>
       <a class="btn btn--primary btn--block" href={site.donateUrl} rel="noopener">Donate online</a>
@@ -93,6 +95,11 @@ import { site, tel } from '../data/site';
     padding: clamp(1.75rem, 4vw, 2.75rem);
     background: var(--white);
     border: 1px solid var(--rule);
+  }
+  .give-card :global(.give-mark) {
+    width: 3rem;
+    height: 3rem;
+    margin-bottom: 1.5rem;
   }
   .give-card h2 {
     font-size: var(--step-3);

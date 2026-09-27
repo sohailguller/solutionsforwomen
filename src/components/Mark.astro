@@ -1,0 +1,32 @@
+---
+// The Solutions for Women emblem: the Bay Bridge tower against a sun setting
+// into the Bay. Standalone files live in public/brand/.
+interface Props {
+  ring?: boolean;
+  class?: string;
+  label?: string;
+}
+const { ring = false, class: className, label } = Astro.props;
+const id = `sfw-${Math.random().toString(36).slice(2, 8)}`;
+---
+
+<svg
+  class={className}
+  viewBox={ring ? '-1 -1 50 50' : '0 0 48 48'}
+  role={label ? 'img' : undefined}
+  aria-label={label}
+  aria-hidden={label ? undefined : 'true'}
+>
+  <defs><clipPath id={id}><circle cx="24" cy="24" r="23"></circle></clipPath></defs>
+  {ring && <circle cx="24" cy="24" r="23.4" fill="none" stroke="#F8F4EC" stroke-width="1.2"></circle>}
+  <g clip-path={`url(#${id})`}>
+    <rect width="48" height="48" fill="#15264A"></rect>
+    <circle cx="24" cy="35" r="11.5" fill="#E8A262"></circle>
+    <rect y="35" width="48" height="13" fill="#1F4FB5"></rect>
+    <path d="M9 40.5h8M31 40.5h8M14 44h6M28 44h6" stroke="#15264A" stroke-width="1.1" stroke-linecap="round" opacity=".55"></path>
+    <path d="M20.9 10.5C19.6 22 14.5 29.5 4 33.6M27.1 10.5C28.4 22 33.5 29.5 44 33.6" fill="none" stroke="#F8F4EC" stroke-width="1.5" stroke-linecap="round"></path>
+    <path d="M0 35h48" stroke="#F8F4EC" stroke-width="2.2"></path>
+    <path d="M19.5 8h9v2.4h-9zM19.5 8h2.8v41h-2.8zM25.7 8h2.8v41h-2.8z" fill="#F8F4EC"></path>
+    <path d="M22.3 12.6l3.4 5.2M25.7 12.6l-3.4 5.2M22.3 19.9l3.4 5.2M25.7 19.9l-3.4 5.2M22.3 27.2l3.4 5.2M25.7 27.2l-3.4 5.2" stroke="#F8F4EC" stroke-width="1.15"></path>
+  </g>
+</svg>

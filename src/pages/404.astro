@@ -1,10 +1,11 @@
 ---
 import Base from '../layouts/Base.astro';
+import Mark from '../components/Mark.astro';
 ---
 
 <Base title="Page not found" description="The page you are looking for could not be found.">
   <section class="wrap wrap--narrow nf">
-    <span class="label">404</span>
+    <Mark class="page-mark" />
     <h1>We couldn’t find that page</h1>
     <p class="lede">It may have moved when we updated our website. These links may help.</p>
     <ul>
@@ -18,6 +19,11 @@ import Base from '../layouts/Base.astro';
 </Base>
 
 <style>
+  .nf :global(.page-mark) {
+    width: 4rem;
+    height: 4rem;
+    margin-bottom: 2rem;
+  }
   .nf {
     padding-block: clamp(4rem, 10vw, 9rem);
   }
