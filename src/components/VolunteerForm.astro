@@ -1,14 +1,13 @@
 ---
+import Form from './Form.astro';
+
 interface Props {
   event: string;
 }
 const { event } = Astro.props;
 ---
 
-<form class="form" name="volunteer" method="POST" action="/thank-you?form=volunteer" data-netlify="true" netlify-honeypot="company">
-  <input type="hidden" name="form-name" value="volunteer" />
-  <input type="hidden" name="event" value={event} />
-  <p class="hp"><label>Leave this empty <input name="company" tabindex="-1" autocomplete="off" /></label></p>
+<Form name="volunteer" subject={`Volunteer sign-up: ${event}`} success="Thank you for volunteering. We will be in touch to confirm your shift." submit="Sign up to volunteer">
   <div class="form-row">
     <div class="field">
       <label for="v-first">First name</label>
@@ -48,10 +47,7 @@ const { event } = Astro.props;
     <label for="v-notes">Anything we should know? <span class="opt">(optional)</span></label>
     <textarea id="v-notes" name="notes" rows="4"></textarea>
   </div>
-  <div>
-    <button class="btn btn--primary" type="submit">Sign up to volunteer</button>
-  </div>
-</form>
+</Form>
 
 <style>
   .days {

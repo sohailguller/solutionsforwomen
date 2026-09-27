@@ -19,6 +19,7 @@ import Mark from '../components/Mark.astro';
   const form = new URLSearchParams(location.search).get('form');
   const copy: Record<string, [string, string]> = {
     contact: ['Thank you for your message', 'We read every message and will get back to you as soon as we can.'],
+    newsletter: ['You’re signed up', 'Look out for our next monthly update and event reminders.'],
     volunteer: ['Thank you for volunteering', 'We will be in touch to confirm your shift. We look forward to seeing you.'],
   };
   const pick = form ? copy[form] : undefined;

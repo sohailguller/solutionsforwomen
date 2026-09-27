@@ -18,8 +18,12 @@ export const site = {
     phone: '415-572-2873',
   },
 
-  // Existing PayPal hosted donate button (from the previous site's Support Us page).
-  donateUrl: 'https://www.paypal.com/donate/?hosted_button_id=FHBVDZDJLFXT4',
+  // PayPal donate page (one-time, monthly or yearly gifts).
+  donateUrl:
+    'https://www.paypal.com/donate?token=r6uYM71cuviaTZI_DgtL7lYCVL9DxeLQtCjosqdstAjI4XugZWFlzPio-6lzEQj2ccwL3FBh3JCDWvSL',
+
+  // Where contact, newsletter and volunteer submissions are emailed (via FormSubmit.co).
+  formsTo: 'info@solutionsforwomen.net',
 
   social: {
     facebook: 'https://www.facebook.com/SolutionsForWomen',
