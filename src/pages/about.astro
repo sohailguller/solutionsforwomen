@@ -1,0 +1,239 @@
+---
+import Base from '../layouts/Base.astro';
+import Photo from '../components/Photo.astro';
+import DonateBand from '../components/DonateBand.astro';
+import { history } from '../data/history';
+---
+
+<Base
+  title="About"
+  description="The Solutions for Women history: from support groups in our living rooms in 2010 to community groups, transitional housing, retreats and city honors in San Francisco."
+  image="about/collage-group"
+>
+  <header class="page-head wrap">
+    <span class="label">About</span>
+    <h1>The Solutions for Women history</h1>
+    <p class="lede">
+      We believe all women can embrace who they are, can define their future, and can change the world.
+    </p>
+  </header>
+
+  <div class="wrap intro-pics">
+    <figure class="ip ip-1">
+      <Photo src="about/collage-group" alt="Members of Solutions for Women at an event" sizes="(min-width: 64rem) 58vw, 100vw" class="img-cover" loading="eager" />
+    </figure>
+    <figure class="ip ip-2">
+      <Photo src="about/collage-circle" alt="Members standing with their feet together in a circle" sizes="(min-width: 64rem) 20vw, 50vw" class="img-cover" loading="eager" />
+    </figure>
+    <figure class="ip ip-3">
+      <Photo src="about/collage-04" alt="Two members smiling outdoors" sizes="(min-width: 64rem) 20vw, 50vw" class="img-cover" loading="eager" />
+    </figure>
+  </div>
+
+  <section class="section philosophy">
+    <div class="wrap phil-grid">
+      <h2>Our philosophy is based on our core values</h2>
+      <div class="prose">
+        <p class="lede">
+          Solutions for Women is committed to the empowerment of women. Our mission is to support and connect women to
+          resources, encourage emotional wellness and promote education so women aspire to become leaders in their
+          community.
+        </p>
+        <p>At Solutions, “Experience is the best teacher.” Through shared, lived experiences, we teach what we know.</p>
+        <p>
+          Today, Solutions is a local 501(c)(3) nonprofit agency in San Francisco’s Bay Area. The group is committed to
+          the empowerment of women as they transition (like the original founders had successfully done themselves) back
+          into society after exiting incarceration, family shelters, domestic violence situations, and/or substance
+          abuse and behavioral modification programs. Support groups are held throughout the month and community events
+          are held throughout the year.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="timeline section--white" aria-labelledby="timeline-h">
+    <div class="wrap">
+      <h2 id="timeline-h" class="visually-hidden">Timeline</h2>
+      <ol class="milestones">
+        {
+          history.map((m, i) => {
+            const [lead, ...rest] = m.photos;
+            return (
+              <li class:list={['ms', { 'ms--flip': i % 2 === 1 }]}>
+                <div class="ms-text">
+                  <p class="year">{m.year}</p>
+                  <h3>{m.title}</h3>
+                  {m.body.map((p) => (
+                    <p>{p}</p>
+                  ))}
+                </div>
+                <div class="ms-pics">
+                  {lead && (
+                    <figure class:list={['lead', { 'lead--contain': lead.fit === 'contain' }]}>
+                      <Photo src={lead.key} alt={lead.alt} sizes="(min-width: 64rem) 45vw, 100vw" class="img-cover" />
+                    </figure>
+                  )}
+                  {rest.length > 0 && (
+                    <div class="thumbs" style={`--n:${Math.max(Math.min(rest.length, 3), 2)}`}>
+                      {rest.slice(0, 3).map((ph) => (
+                        <figure class:list={{ contain: ph.fit === 'contain' }}>
+                          <Photo src={ph.key} alt={ph.alt} sizes="(min-width: 64rem) 15vw, 33vw" widths={[320, 480, 640]} class="img-cover" />
+                        </figure>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              </li>
+            );
+          })
+        }
+      </ol>
+    </div>
+  </section>
+
+  <section class="section thanks">
+    <div class="wrap wrap--narrow">
+      <p class="lede">
+        A huge thank you to our predecessors, Juanita Johnson and the original women of PDEC, Positive Directions Equals
+        Change, for paving a way for us.
+      </p>
+      <div class="actions">
+        <a class="btn btn--outline" href="/who-we-are">Meet the board</a>
+        <a class="btn btn--outline" href="/gallery">Browse the gallery</a>
+      </div>
+    </div>
+  </section>
+
+  <DonateBand />
+</Base>
+
+<style>
+  .intro-pics {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.5rem;
+  }
+  .ip {
+    overflow: hidden;
+    aspect-ratio: 1;
+  }
+  .ip-1 {
+    grid-column: 1 / -1;
+    aspect-ratio: 3 / 2;
+  }
+  @media (min-width: 64rem) {
+    .intro-pics {
+      grid-template-columns: 3fr 1fr 1fr;
+      height: 30rem;
+    }
+    .ip,
+    .ip-1 {
+      aspect-ratio: auto;
+      grid-column: auto;
+    }
+  }
+
+  .phil-grid {
+    display: grid;
+    gap: 2rem;
+  }
+  .phil-grid h2 {
+    font-size: var(--step-3);
+    max-width: 14ch;
+  }
+  .phil-grid .lede {
+    margin-bottom: 1.5rem;
+  }
+  .phil-grid .prose p:not(.lede) {
+    color: var(--ink-2);
+  }
+  @media (min-width: 64rem) {
+    .phil-grid {
+      grid-template-columns: 4fr 8fr;
+      gap: 4rem;
+    }
+  }
+
+  .timeline {
+    padding-block: var(--section);
+  }
+  .milestones {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .ms {
+    display: grid;
+    gap: 2rem;
+    padding-block: clamp(3rem, 6vw, 5rem);
+    border-top: 1px solid var(--rule);
+  }
+  .ms:first-child {
+    border-top: 0;
+    padding-top: 0;
+  }
+  .ms:last-child {
+    padding-bottom: 0;
+  }
+  .year {
+    font-family: var(--serif);
+    font-size: clamp(3.5rem, 2rem + 5vw, 6rem);
+    line-height: 0.9;
+    letter-spacing: -0.03em;
+    color: var(--accent);
+    margin-bottom: 1.25rem;
+    font-variant-numeric: lining-nums;
+  }
+  .ms-text {
+    max-width: 32rem;
+  }
+  .ms-text h3 {
+    font-size: var(--step-3);
+    font-weight: 400;
+    margin-bottom: 1.25rem;
+  }
+  .ms-text p:not(.year) {
+    color: var(--ink-2);
+  }
+  .ms-pics {
+    display: grid;
+    gap: 0.5rem;
+    align-content: start;
+  }
+  .lead {
+    aspect-ratio: 3 / 2;
+    overflow: hidden;
+    background: var(--paper-2);
+  }
+  .thumbs {
+    display: grid;
+    grid-template-columns: repeat(var(--n, 3), 1fr);
+    gap: 0.5rem;
+  }
+  .thumbs .contain :global(img),
+  .lead--contain :global(img) {
+    object-fit: contain;
+  }
+  .thumbs figure {
+    aspect-ratio: 1;
+    overflow: hidden;
+    background: var(--paper-2);
+  }
+  @media (min-width: 64rem) {
+    .ms {
+      grid-template-columns: 5fr 7fr;
+      gap: 5rem;
+    }
+    .ms--flip .ms-text {
+      order: 2;
+    }
+    .ms--flip {
+      grid-template-columns: 7fr 5fr;
+    }
+  }
+
+  .thanks .lede {
+    font-size: var(--step-3);
+    line-height: 1.3;
+  }
+</style>

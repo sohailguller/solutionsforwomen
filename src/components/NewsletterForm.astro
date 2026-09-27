@@ -1,0 +1,28 @@
+---
+interface Props {
+  idPrefix?: string;
+}
+const { idPrefix = 'nl' } = Astro.props;
+---
+
+<form class="form" name="newsletter" method="POST" action="/thank-you" data-netlify="true" netlify-honeypot="company">
+  <input type="hidden" name="form-name" value="newsletter" />
+  <p class="hp"><label>Leave this empty <input name="company" tabindex="-1" autocomplete="off" /></label></p>
+  <div class="field">
+    <label for={`${idPrefix}-name`}>Name</label>
+    <input id={`${idPrefix}-name`} name="full-name" autocomplete="name" />
+  </div>
+  <div class="form-row">
+    <div class="field">
+      <label for={`${idPrefix}-email`}>Email</label>
+      <input id={`${idPrefix}-email`} name="email" type="email" autocomplete="email" required />
+    </div>
+    <div class="field">
+      <label for={`${idPrefix}-phone`}>Phone <span class="opt">(optional)</span></label>
+      <input id={`${idPrefix}-phone`} name="phone" type="tel" autocomplete="tel" />
+    </div>
+  </div>
+  <div>
+    <button class="btn btn--primary" type="submit">Sign up</button>
+  </div>
+</form>

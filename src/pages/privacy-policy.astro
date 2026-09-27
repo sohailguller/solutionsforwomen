@@ -1,0 +1,58 @@
+---
+import Legal from '../components/Legal.astro';
+import { site } from '../data/site';
+---
+
+<Legal title="Privacy Policy" description="How Solutions for Women collects, uses and protects your information." updated="September 2026">
+  <p>
+    Solutions for Women respects your privacy. This policy explains what information we collect through this website,
+    how we use it, and the choices you have.
+  </p>
+
+  <h2>Information we collect</h2>
+  <p>We only collect information you choose to give us, for example when you:</p>
+  <ul>
+    <li>sign up for monthly updates and event reminders (name, email and, if you choose, phone number);</li>
+    <li>send us a message through the contact form;</li>
+    <li>sign up to volunteer at an event.</li>
+  </ul>
+  <p>
+    Donations are processed by PayPal. We do not see or store your card details. PayPal shares your name, email and
+    donation amount with us so we can thank you and provide a receipt.
+  </p>
+
+  <h2>How we use it</h2>
+  <p>
+    We use your information to reply to you, send the updates you asked for, organize volunteers and acknowledge
+    donations. We never sell, rent or trade your information.
+  </p>
+
+  <h2>Support groups</h2>
+  <p>
+    All support group discussions are confidential. We do not record groups or collect information about what is
+    shared in them.
+  </p>
+
+  <h2>Service providers</h2>
+  <p>
+    Form submissions are stored by our website host, and donations are handled by PayPal. These providers process
+    information on our behalf under their own privacy and security commitments.
+  </p>
+
+  <h2>Safety and security</h2>
+  <p>
+    This website is served over an encrypted connection (HTTPS). Access to the information you send us is limited to
+    the people at Solutions for Women who need it to respond to you.
+  </p>
+
+  <h2>Your choices</h2>
+  <p>
+    You can unsubscribe from our emails at any time, or ask us to update or delete your information, by emailing{' '}
+    <a href={`mailto:${site.email}`}>{site.email}</a>.
+  </p>
+
+  <h2>Contact</h2>
+  <p>
+    Questions about this policy can be sent to <a href={`mailto:${site.email}`}>{site.email}</a> or {site.phone}.
+  </p>
+</Legal>

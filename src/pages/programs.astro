@@ -1,0 +1,168 @@
+---
+import Base from '../layouts/Base.astro';
+import Photo from '../components/Photo.astro';
+import DonateBand from '../components/DonateBand.astro';
+import SupportGroupDetails from '../components/SupportGroupDetails.astro';
+
+const topics = ['Coping skills', 'Self-esteem', 'Relationships', 'Life skills', 'Setting boundaries', 'Goal setting', 'Self care', 'Mental health'];
+---
+
+<Base
+  title="Programs"
+  description="Weekly support groups on Zoom every Tuesday, collaborative community events and retreats for women in San Francisco."
+  image="about/2022-support-circle"
+>
+  <header class="page-head wrap">
+    <h1>Program activities</h1>
+    <p class="lede">
+      Solutions for Women offers supportive groups and collaborative events to cater to the diverse needs of our women.
+    </p>
+  </header>
+
+  <section class="section section--white" id="support-groups" aria-labelledby="sg-h">
+    <div class="wrap sg-grid">
+      <div class="sg-copy">
+        <span class="label">Our support groups</span>
+        <h2 id="sg-h">Where women's voices are heard, strength flourishes</h2>
+        <p class="intro">
+          Group discussions focus on coping skills, how to navigate challenges and successes of our everyday lives. All
+          discussions are confidential.
+        </p>
+        <SupportGroupDetails />
+      </div>
+      <aside class="sg-side">
+        <figure class="flyer">
+          <Photo src="home/zoom-flyer" alt="Solutions for Women: join us on Zoom every Tuesday, 6:30 to 8:00 pm. Meeting ID 211 052 282, passcode 711010." sizes="(min-width: 64rem) 24rem, 80vw" widths={[400, 497]} />
+        </figure>
+        <h3>Discussion topics include</h3>
+        <ul class="topics">
+          {topics.map((t) => <li>{t}</li>)}
+        </ul>
+      </aside>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="ev-h">
+    <div class="wrap feature">
+      <figure class="feature-pic">
+        <Photo src="gallery/retreat-2025/02" alt="Participants of the 2025 Black Women in Leadership Retreat" sizes="(min-width: 64rem) 50vw, 100vw" class="img-cover" />
+      </figure>
+      <div class="feature-copy">
+        <span class="label">Our collaborative events</span>
+        <h2 id="ev-h">Together we rise, together we thrive</h2>
+        <p>We collaborate and host community events and retreats for women.</p>
+        <p>
+          Solutions for Women collaboratively hosted a Black Women's Wellness and Leadership retreat in May 2022, in
+          honor of Jeris P. Woodson aka “Peaches”. The Black Women in Leadership Retreat returned in 2025.
+        </p>
+        <p>
+          Our events include Women's Equality Day, Fleet Week, the Reentry Conference, our Vision Board workshop,
+          Christmas brunch and the Women's Wellness Retreat.
+        </p>
+        <div class="actions">
+          <a class="btn btn--primary" href="/events">Upcoming events</a>
+          <a class="btn btn--outline" href="/gallery">See photos</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--white" aria-labelledby="house-h">
+    <div class="wrap feature feature--flip">
+      <figure class="feature-pic">
+        <Photo src="about/2011-third-street-house" alt="Members outside the Third Street transitional house in Bayview" sizes="(min-width: 64rem) 50vw, 100vw" class="img-cover" />
+      </figure>
+      <div class="feature-copy">
+        <span class="label">Where we started</span>
+        <h2 id="house-h">Transitional home management and free community groups</h2>
+        <p>
+          Since 2010 we have co-managed Nanny's Transitional House for Women in Bayview Hunters Point, operated our own
+          transitional house on Third Street, and held free community groups at the Clean Lounge and the Bayview Commons
+          Community Room.
+        </p>
+        <a class="more" href="/about">Read our history</a>
+      </div>
+    </div>
+  </section>
+
+  <DonateBand />
+</Base>
+
+<style>
+  .sg-grid {
+    display: grid;
+    gap: 3rem;
+    align-items: start;
+  }
+  .sg-copy {
+    max-width: 38rem;
+  }
+  .sg-copy h2 {
+    font-size: var(--step-4);
+  }
+  .intro {
+    font-size: var(--step-1);
+    line-height: 1.55;
+    color: var(--ink-2);
+  }
+  .sg-side h3 {
+    font-size: var(--step-1);
+    margin: 2rem 0 1rem;
+  }
+  .flyer {
+    max-width: 22rem;
+    box-shadow: 0 1px 2px rgba(31, 28, 24, 0.14);
+  }
+  .topics {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    border-top: 1px solid var(--rule);
+    max-width: 22rem;
+  }
+  .topics li {
+    padding: 0.6rem 0;
+    border-bottom: 1px solid var(--rule);
+    font-size: 0.975rem;
+  }
+  @media (min-width: 64rem) {
+    .sg-grid {
+      grid-template-columns: 7fr 4fr;
+      gap: 6rem;
+    }
+  }
+
+  .feature {
+    display: grid;
+    gap: 2rem;
+    align-items: center;
+  }
+  .feature-pic {
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+  }
+  .feature-copy {
+    max-width: 34rem;
+  }
+  .feature-copy h2 {
+    font-size: var(--step-3);
+  }
+  .feature-copy p {
+    color: var(--ink-2);
+  }
+  @media (min-width: 64rem) {
+    .feature {
+      grid-template-columns: 6fr 5fr;
+      gap: 5rem;
+    }
+    .feature--flip {
+      grid-template-columns: 5fr 6fr;
+    }
+    .feature--flip .feature-pic {
+      order: 2;
+    }
+  }
+</style>

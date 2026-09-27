@@ -1,0 +1,498 @@
+---
+import Base from '../layouts/Base.astro';
+import Photo from '../components/Photo.astro';
+import DonateBand from '../components/DonateBand.astro';
+import SupportGroupDetails from '../components/SupportGroupDetails.astro';
+import { upcoming } from '../data/events';
+
+const next = upcoming[0];
+
+const paths = [
+  {
+    href: '/about',
+    title: 'Our mission',
+    text: 'Our goals, vision and commitment to women.',
+    img: 'about/collage-group',
+    alt: 'Members of Solutions for Women together at an event',
+  },
+  {
+    href: '/events',
+    title: 'Our events',
+    text: 'Register and help make a change.',
+    img: 'gallery/equality-day-2024/03',
+    alt: "A speaker at Women's Equality Day 2024",
+  },
+  {
+    href: '/support-us',
+    title: 'Get involved',
+    text: 'Volunteer, participate or donate.',
+    img: 'contact/group-teal',
+    alt: 'Members of Solutions for Women in matching retreat shirts',
+  },
+];
+
+const mosaic = [
+  { key: 'events/fleet-week-02', alt: 'Solutions for Women volunteers at the Fleet Week 2024 booth' },
+  { key: 'gallery/womens-day/03', alt: "Guests at the Women's Day luncheon" },
+  { key: 'gallery/christmas-brunch-2024/02', alt: 'Friends at the 2024 Christmas brunch' },
+  { key: 'gallery/fleet-week-2024/10', alt: 'Volunteers at Fleet Week 2024' },
+  { key: 'gallery/equality-day-2024/11', alt: "Women's Equality Day 2024 attendees" },
+];
+---
+
+<Base>
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <h1>Helping empower our women through advocacy and support</h1>
+      <div class="hero-side">
+        <p>
+          Solutions for Women offers supportive groups and collaborative events to cater to the diverse needs of our
+          women. We are here to help, support and provide solutions for women in need.
+        </p>
+        <div class="actions">
+          <a class="btn btn--primary" href="/programs#support-groups">Join a support group</a>
+          <a class="btn btn--outline" href="/support-us">Donate</a>
+        </div>
+      </div>
+    </div>
+    <figure class="hero-fig">
+      <Photo
+        src="home/hero-retreat-2022"
+        alt="Women in Black Women in Leadership shirts sitting together on a lawn at the 2022 retreat"
+        sizes="100vw"
+        widths={[640, 960, 1440, 1920, 2400]}
+        loading="eager"
+        fetchpriority="high"
+        class="img-cover"
+        position="50% 40%"
+      />
+      <figcaption class="wrap">
+        Black Women's Wellness and Leadership Retreat, held in honor of Jeris P. Woodson, May 2022.
+      </figcaption>
+    </figure>
+  </section>
+
+  <section class="section mission">
+    <div class="wrap mission-grid">
+      <span class="label">Our mission</span>
+      <div>
+        <p class="statement">
+          Solutions for Women is committed to the empowerment of women. Our mission is to support and connect women to
+          resources, encourage emotional wellness and promote education so women aspire to become leaders in their
+          community.
+        </p>
+        <div class="mission-foot">
+          <p>
+            At Solutions, “Experience is the best teacher.” Through shared, lived experiences, we teach what we know.
+            We began in 2010 as a network of women supporting one another after exiting the criminal justice system and
+            recovery programs, and we have been walking the road together ever since.
+          </p>
+          <a class="more" href="/about">Read our history</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--white programs" aria-labelledby="programs-h">
+    <div class="wrap">
+      <header class="sec-head">
+        <h2 id="programs-h">Program activities</h2>
+        <p class="muted">
+          Solutions for Women offers supportive groups and collaborative events to cater to the diverse needs of our
+          women.
+        </p>
+      </header>
+
+      <article class="feature" id="support-groups">
+        <figure class="feature-pic">
+          <Photo
+            src="about/2022-support-circle"
+            alt="Women seated in a circle during a support group"
+            sizes="(min-width: 64rem) 50vw, 100vw"
+            class="img-cover"
+          />
+        </figure>
+        <div class="feature-copy">
+          <span class="label">Our support groups</span>
+          <h3>Where women's voices are heard, strength flourishes.</h3>
+          <p>
+            Group discussions focus on coping skills, how to navigate challenges and successes of our everyday lives. All
+            discussions are confidential.
+          </p>
+          <SupportGroupDetails />
+        </div>
+      </article>
+
+      <article class="feature feature--flip">
+        <figure class="feature-pic">
+          <Photo
+            src="home/slide-retreat-teal"
+            alt="Retreat participants in matching teal shirts celebrating outdoors"
+            sizes="(min-width: 64rem) 50vw, 100vw"
+            class="img-cover"
+          />
+        </figure>
+        <div class="feature-copy">
+          <span class="label">Our collaborative events</span>
+          <h3>Together we rise, together we thrive.</h3>
+          <p>We collaborate and host community events and retreats for women.</p>
+          <p>
+            Solutions for Women collaboratively hosted a Black Women's Wellness and Leadership retreat in May 2022, in
+            honor of Jeris P. Woodson aka “Peaches”.
+          </p>
+          <p>
+            Our events include Women's Equality Day, Fleet Week, the Reentry Conference, our Vision Board workshop and
+            the Women's Wellness Retreat.
+          </p>
+          <a class="more" href="/events">See upcoming events</a>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section class="quote section--navy">
+    <div class="wrap wrap--narrow">
+      <blockquote>
+        <p>
+          I am no bird; and no net ensnares me; I am a free human being, ‘a woman’ with an independent will.
+        </p>
+        <footer>Charlotte Brontë, <cite>Jane Eyre</cite></footer>
+      </blockquote>
+    </div>
+  </section>
+
+  {
+    next && (
+      <section class="section event" aria-labelledby="event-h">
+        <div class="wrap event-grid">
+          <div class="event-copy">
+            <span class="label">Upcoming event</span>
+            <h2 id="event-h">{next.title}</h2>
+            <p class="event-when">
+              {next.dateLabel}
+              <br />
+              {next.location}
+            </p>
+            <p>{next.summary}</p>
+            <div class="actions">
+              <a class="btn btn--primary" href={`/events/${next.slug}`}>
+                Sign up to volunteer
+              </a>
+              <a class="btn btn--outline" href="/events">
+                All events
+              </a>
+            </div>
+          </div>
+          <figure class="event-pic">
+            <Photo src={next.image} alt={next.imageAlt} sizes="(min-width: 64rem) 36vw, 100vw" />
+          </figure>
+        </div>
+      </section>
+    )
+  }
+
+  <section class="section section--rule paths" aria-label="Ways to connect">
+    <div class="wrap">
+      <ul class="path-list">
+        {
+          paths.map((p) => (
+            <li>
+              <a href={p.href} class="path">
+                <span class="path-pic">
+                  <Photo src={p.img} alt={p.alt} sizes="(min-width: 48rem) 33vw, 100vw" class="img-cover" />
+                </span>
+                <span class="path-title">{p.title}</span>
+                <span class="path-text">{p.text}</span>
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  <section class="section section--white gallery" aria-labelledby="gallery-h">
+    <div class="wrap">
+      <header class="sec-head sec-head--row">
+        <div>
+          <h2 id="gallery-h">Gallery</h2>
+          <p class="muted">Our retreats, brunches and community events.</p>
+        </div>
+        <a class="more" href="/gallery">View the gallery</a>
+      </header>
+      <div class="mosaic">
+        {
+          mosaic.map((m, i) => (
+            <a href="/gallery" class={`tile tile-${i + 1}`} tabindex="-1">
+              <Photo
+                src={m.key}
+                alt={m.alt}
+                sizes={i === 0 ? '(min-width: 64rem) 50vw, 100vw' : '(min-width: 64rem) 25vw, 50vw'}
+                class="img-cover"
+              />
+            </a>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <DonateBand heading="Join us" text="Helping empower our women through advocacy and support. Volunteer, participate, or donate to our cause." />
+</Base>
+
+<style>
+  /* Hero */
+  .hero {
+    padding-top: clamp(3rem, 7vw, 6.5rem);
+  }
+  .hero-grid {
+    display: grid;
+    gap: 2rem;
+    padding-bottom: clamp(2.5rem, 5vw, 4rem);
+  }
+  .hero h1 {
+    max-width: 14ch;
+    margin: 0;
+  }
+  .hero-side p {
+    font-size: var(--step-1);
+    line-height: 1.55;
+    color: var(--ink-2);
+    max-width: 30rem;
+  }
+  .hero-side .actions {
+    margin-top: 1.75rem;
+  }
+  .hero-fig {
+    margin: 0;
+  }
+  .hero-fig :global(img) {
+    height: clamp(20rem, 52vw, 44rem);
+  }
+  .hero-fig figcaption {
+    padding-top: 0.25rem;
+  }
+  @media (min-width: 64rem) {
+    .hero-grid {
+      grid-template-columns: 7fr 5fr;
+      align-items: end;
+      gap: 4rem;
+    }
+  }
+
+  /* Mission */
+  .mission-grid {
+    display: grid;
+    gap: 1rem;
+  }
+  .statement {
+    font-family: var(--serif);
+    font-size: var(--step-3);
+    line-height: 1.25;
+    letter-spacing: -0.012em;
+    max-width: 30ch;
+    margin-bottom: 2.5rem;
+  }
+  .mission-foot {
+    display: grid;
+    gap: 1.25rem;
+    max-width: 38rem;
+    color: var(--ink-2);
+  }
+  .mission-foot .more {
+    color: var(--ink);
+    justify-self: start;
+  }
+  @media (min-width: 64rem) {
+    .mission-grid {
+      grid-template-columns: 3fr 9fr;
+      gap: 4rem;
+    }
+  }
+
+  /* Section heads */
+  .sec-head {
+    max-width: 40rem;
+    margin-bottom: clamp(2.5rem, 5vw, 4rem);
+  }
+  .sec-head p {
+    font-size: var(--step-1);
+  }
+  .sec-head--row {
+    max-width: none;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: end;
+    justify-content: space-between;
+    gap: 1rem 2rem;
+  }
+  .sec-head--row h2 {
+    margin-bottom: 0.25rem;
+  }
+
+  /* Features */
+  .feature {
+    display: grid;
+    gap: 2rem;
+    align-items: center;
+  }
+  .feature + .feature {
+    margin-top: clamp(4rem, 8vw, 7rem);
+  }
+  .feature-pic {
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+  }
+  .feature-copy {
+    max-width: 34rem;
+  }
+  .feature-copy h3 {
+    font-size: var(--step-3);
+    font-weight: 400;
+    margin-bottom: 1.25rem;
+  }
+  .feature-copy .more {
+    margin-top: 0.5rem;
+  }
+  @media (min-width: 64rem) {
+    .feature {
+      grid-template-columns: 6fr 5fr;
+      gap: 5rem;
+    }
+    .feature--flip {
+      grid-template-columns: 5fr 6fr;
+    }
+    .feature--flip .feature-pic {
+      order: 2;
+    }
+  }
+
+  /* Quote */
+  .quote {
+    padding-block: clamp(4rem, 9vw, 7.5rem);
+  }
+  .quote blockquote {
+    margin: 0;
+  }
+  .quote p {
+    font-family: var(--serif);
+    font-size: var(--step-4);
+    line-height: 1.15;
+    letter-spacing: -0.015em;
+    text-indent: -0.4em;
+  }
+  .quote p::before {
+    content: '“';
+  }
+  .quote p::after {
+    content: '”';
+  }
+  .quote footer {
+    margin-top: 2rem;
+    color: var(--navy-ink);
+  }
+
+  /* Event */
+  .event-grid {
+    display: grid;
+    gap: 2.5rem;
+    align-items: center;
+  }
+  .event-copy {
+    max-width: 34rem;
+  }
+  .event-when {
+    font-family: var(--serif);
+    font-size: var(--step-2);
+    line-height: 1.3;
+  }
+  .event-pic {
+    max-width: 26rem;
+    justify-self: center;
+    box-shadow: 0 1px 2px rgba(31, 28, 24, 0.12);
+  }
+  @media (min-width: 64rem) {
+    .event-grid {
+      grid-template-columns: 7fr 5fr;
+      gap: 5rem;
+    }
+  }
+
+  /* Paths */
+  .path-list {
+    display: grid;
+    gap: 2.5rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .path {
+    display: grid;
+    text-decoration: none;
+  }
+  .path-pic {
+    display: block;
+    aspect-ratio: 3 / 2;
+    overflow: hidden;
+    margin-bottom: 1.25rem;
+    background: var(--paper-2);
+  }
+  .path-pic :global(img) {
+    transition: transform 0.4s ease;
+  }
+  .path:hover .path-pic :global(img) {
+    transform: scale(1.02);
+  }
+  .path-title {
+    font-family: var(--serif);
+    font-size: var(--step-2);
+    line-height: 1.2;
+  }
+  .path:hover .path-title {
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.18em;
+  }
+  .path-text {
+    margin-top: 0.35rem;
+    color: var(--ink-2);
+  }
+  @media (min-width: 48rem) {
+    .path-list {
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+    }
+  }
+
+  /* Mosaic */
+  .mosaic {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.5rem;
+  }
+  .tile {
+    display: block;
+    overflow: hidden;
+    aspect-ratio: 1;
+    background: var(--paper-2);
+  }
+  .tile-1 {
+    grid-column: 1 / -1;
+    aspect-ratio: 16 / 10;
+  }
+  @media (min-width: 64rem) {
+    .mosaic {
+      grid-template-columns: 2fr 1fr 1fr;
+      grid-template-rows: repeat(2, 1fr);
+      height: 36rem;
+    }
+    .tile,
+    .tile-1 {
+      aspect-ratio: auto;
+    }
+    .tile-1 {
+      grid-column: 1;
+      grid-row: 1 / 3;
+    }
+  }
+</style>

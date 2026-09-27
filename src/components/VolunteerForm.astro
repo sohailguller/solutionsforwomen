@@ -1,0 +1,80 @@
+---
+interface Props {
+  event: string;
+}
+const { event } = Astro.props;
+---
+
+<form class="form" name="volunteer" method="POST" action="/thank-you?form=volunteer" data-netlify="true" netlify-honeypot="company">
+  <input type="hidden" name="form-name" value="volunteer" />
+  <input type="hidden" name="event" value={event} />
+  <p class="hp"><label>Leave this empty <input name="company" tabindex="-1" autocomplete="off" /></label></p>
+  <div class="form-row">
+    <div class="field">
+      <label for="v-first">First name</label>
+      <input id="v-first" name="first-name" autocomplete="given-name" required />
+    </div>
+    <div class="field">
+      <label for="v-last">Last name</label>
+      <input id="v-last" name="last-name" autocomplete="family-name" required />
+    </div>
+  </div>
+  <div class="form-row">
+    <div class="field">
+      <label for="v-email">Email</label>
+      <input id="v-email" name="email" type="email" autocomplete="email" required />
+    </div>
+    <div class="field">
+      <label for="v-phone">Phone</label>
+      <input id="v-phone" name="phone" type="tel" autocomplete="tel" required />
+    </div>
+  </div>
+  <fieldset class="days">
+    <legend>Which days can you help?</legend>
+    <label><input type="checkbox" name="days" value="Friday, October 9" /> Friday, October 9</label>
+    <label><input type="checkbox" name="days" value="Saturday, October 10" /> Saturday, October 10</label>
+    <label><input type="checkbox" name="days" value="Sunday, October 11" /> Sunday, October 11</label>
+  </fieldset>
+  <div class="field">
+    <label for="v-shift">Preferred shift</label>
+    <select id="v-shift" name="shift">
+      <option>9:00 am to 1:00 pm</option>
+      <option>12:30 pm to 5:00 pm</option>
+      <option>Either shift</option>
+      <option>Shift lead (all day, stipend included)</option>
+    </select>
+  </div>
+  <div class="field">
+    <label for="v-notes">Anything we should know? <span class="opt">(optional)</span></label>
+    <textarea id="v-notes" name="notes" rows="4"></textarea>
+  </div>
+  <div>
+    <button class="btn btn--primary" type="submit">Sign up to volunteer</button>
+  </div>
+</form>
+
+<style>
+  .days {
+    display: grid;
+    gap: 0.6rem;
+    margin: 0;
+    padding: 0;
+    border: 0;
+  }
+  .days legend {
+    margin-bottom: 0.6rem;
+    font-size: var(--step--1);
+    font-weight: 600;
+  }
+  .days label {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-size: 1rem;
+  }
+  .days input {
+    width: 1.15rem;
+    height: 1.15rem;
+    accent-color: var(--accent);
+  }
+</style>
