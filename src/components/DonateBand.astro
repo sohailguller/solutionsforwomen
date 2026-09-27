@@ -1,5 +1,6 @@
 ---
 import Photo from './Photo.astro';
+import { site } from '../data/site';
 
 interface Props {
   heading?: string;
@@ -17,7 +18,7 @@ const {
       <h2 id="donate-band-h">{heading}</h2>
       <p>{text}</p>
       <div class="actions">
-        <a class="btn btn--primary" href="/support-us">Donate</a>
+        <a class="btn btn--primary" href={site.donateUrl}>Donate</a>
         <a class="btn btn--outline" href="/events">Volunteer at an event</a>
       </div>
     </div>

@@ -5,6 +5,7 @@ import DonateBand from '../components/DonateBand.astro';
 import Mark from '../components/Mark.astro';
 import SupportGroupDetails from '../components/SupportGroupDetails.astro';
 import { upcoming } from '../data/events';
+import { site } from '../data/site';
 
 const next = upcoming[0];
 
@@ -52,7 +53,7 @@ const mosaic = [
         </p>
         <div class="actions">
           <a class="btn btn--primary" href="/programs#support-groups">Join a support group</a>
-          <a class="btn btn--outline" href="/support-us">Donate</a>
+          <a class="btn btn--outline" href={site.donateUrl}>Donate</a>
         </div>
       </div>
     </div>

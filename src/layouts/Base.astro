@@ -63,23 +63,59 @@ const org = {
       <slot />
     </main>
     <Footer />
-    {
-      preview && (
-        <script is:inline>
-          document.querySelectorAll('form[data-netlify]').forEach(function (f) {
-            var btn = f.querySelector('button[type=submit]');
-            if (btn) btn.disabled = true;
-            var note = document.createElement('p');
-            note.className = 'form-note';
-            note.textContent = 'This is a preview site, so forms are switched off. They will work once the site is live.';
-            (btn ? btn.parentNode : f).appendChild(note);
-            f.addEventListener('submit', function (e) { e.preventDefault(); });
-          });
-        </script>
-      )
-    }
   </body>
 </html>
+
+<script>
+  // Send forms to FormSubmit in the background and show the result in place.
+  document.querySelectorAll<HTMLFormElement>('form[data-sfw-form]').forEach((form) => {
+    const status = form.querySelector<HTMLElement>('.form-status')!;
+    const button = form.querySelector<HTMLButtonElement>('button[type=submit]')!;
+    const label = button.textContent;
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      if (!form.reportValidity()) return;
+
+      // Combine repeated fields (like checkboxes) into one value.
+      const data: Record<string, string> = {};
+      new FormData(form).forEach((value, key) => {
+        const v = String(value);
+        data[key] = key in data && data[key] ? `${data[key]}; ${v}` : v;
+      });
+      if (data._honey) return;
+
+      button.disabled = true;
+      button.textContent = 'Sending…';
+      status.textContent = '';
+      status.removeAttribute('data-state');
+
+      try {
+        const res = await fetch(form.action.replace('formsubmit.co/', 'formsubmit.co/ajax/'), {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+          body: JSON.stringify(data),
+        });
+        const json = await res.json().catch(() => ({}));
+        if (!res.ok || String(json.success) !== 'true') throw new Error(json.message || 'Request failed');
+
+        const done = document.createElement('div');
+        done.className = 'form-done';
+        done.setAttribute('role', 'status');
+        done.tabIndex = -1;
+        done.innerHTML = '<h3>Thank you</h3><p></p>';
+        done.querySelector('p')!.textContent = form.dataset.success || 'We have received your details.';
+        form.replaceWith(done);
+        done.focus();
+      } catch {
+        status.dataset.state = 'error';
+        status.textContent = 'Sorry, that didn’t send. Please try again, or email info@solutionsforwomen.net.';
+        button.disabled = false;
+        button.textContent = label;
+      }
+    });
+  });
+</script>
 
 <style>
   .skip {

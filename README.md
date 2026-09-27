@@ -49,20 +49,20 @@ The emblem is the Bay Bridge tower against a sun setting into the Bay, drawn fro
 
 ## Donations
 
-The Donate buttons go to the organisation's existing PayPal donate page (`donateUrl` in `src/data/site.ts`). That page accepts PayPal, debit and credit cards, and recurring gifts.
+Every Donate button goes to the organisation's PayPal donate page (`donateUrl` in `src/data/site.ts`). It takes one-time, monthly and yearly gifts by PayPal or card, and lets donors cover the fees.
 
 To switch to a nonprofit giving platform such as Zeffy (no platform fees) or Givebutter, change `donateUrl`.
 
 ## Forms
 
-The contact form, the newsletter sign-up and the volunteer sign-up use [Netlify Forms](https://docs.netlify.com/forms/setup/). You don't need any extra service:
+The contact form, the monthly-updates sign-up and the volunteer sign-up are emailed to `formsTo` in `src/data/site.ts` (info@solutionsforwomen.net) through [FormSubmit](https://formsubmit.co). There's no account and no monthly fee, and it works on any host, including GitHub Pages and Netlify.
 
-- Submissions appear in the Netlify dashboard under **Forms**.
-- Set email notifications to go to info@solutionsforwomen.net under **Forms, Form notifications**.
-- The free plan includes 100 submissions a month.
-- Spam is filtered by a honeypot field and Netlify's spam filter.
+- **Activate once.** The first submission sends an activation email to info@solutionsforwomen.net. Click the link in it, and every submission after that arrives as an email.
+- **Hide the address (optional).** After activating, FormSubmit emails a random alias. Replace the email address in `formsTo` with it to keep the address out of the page source.
+- **Spam** is blocked by a hidden honeypot field.
+- **To change where submissions go,** edit `formsTo`. The new address needs activating once too.
 
-If the site is hosted somewhere other than Netlify, point each form's `action` at a form service such as Formspree or Basin.
+Forms send in the background and show a confirmation in place. Without JavaScript, they fall back to a normal post and return to `/thank-you`.
 
 ## Deploying
 
@@ -77,5 +77,5 @@ If the site is hosted somewhere other than Netlify, point each form's `action` a
 Every push to `claude/solutions-women-redesign-3kz2qf` publishes a preview to https://sohailguller.github.io/solutionsforwomen using `.github/workflows/pages.yml`.
 
 - The preview build sets `BASE_PATH`, and `scripts/rebase.mjs` prefixes internal links with it.
-- The preview is hidden from search engines, and its forms are switched off because Netlify Forms only work on Netlify.
+- The preview is hidden from search engines. Forms and donations work there as they will on the live site.
 - If a deploy fails with "Pages not enabled", open **Settings, Pages** in the repository, set **Source** to **GitHub Actions**, then re-run the workflow.

@@ -1,0 +1,60 @@
+---
+// Shared form wrapper. Submissions are emailed to site.formsTo through
+// FormSubmit.co, which works on any static host. The script in Base.astro
+// sends the form in the background and shows the result in place; without
+// JavaScript the browser posts to FormSubmit and returns to the thank-you page.
+import { site } from '../data/site';
+
+interface Props {
+  name: string;
+  subject: string;
+  success: string;
+  submit: string;
+}
+const { name, subject, success, submit } = Astro.props;
+const action = `https://formsubmit.co/${site.formsTo}`;
+const next = new URL(`${import.meta.env.BASE_URL.replace(/\/$/, '')}/thank-you?form=${name}`, Astro.site).href;
+---
+
+<form class="form" name={name} method="POST" action={action} data-sfw-form data-success={success}>
+  <input type="hidden" name="_subject" value={subject} />
+  <input type="hidden" name="_template" value="table" />
+  <input type="hidden" name="_captcha" value="false" />
+  <input type="hidden" name="_next" value={next} />
+  <input type="hidden" name="form" value={name} />
+  <p class="hp" aria-hidden="true"><label>Leave this empty <input type="text" name="_honey" tabindex="-1" autocomplete="off" /></label></p>
+  <slot />
+  <div class="form-actions">
+    <button class="btn btn--primary" type="submit">{submit}</button>
+    <p class="form-status" role="status" aria-live="polite"></p>
+  </div>
+</form>
+
+<style>
+  .form-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.75rem 1.25rem;
+  }
+  .form-status {
+    margin: 0;
+    font-size: var(--step--1);
+  }
+  .form-status:empty {
+    display: none;
+  }
+  .form-status[data-state='error'] {
+    color: #9b1c1c;
+  }
+</style>
+
+<style is:global>
+  .form-done {
+    padding: 1.5rem 0;
+  }
+  .form-done h3 {
+    font-size: var(--step-2);
+    margin-bottom: 0.5rem;
+  }
+</style>
