@@ -66,8 +66,9 @@ Forms send in the background and show a confirmation in place. Without JavaScrip
 
 ## Hosting and domain
 
-The site is hosted on **Vercel**, which rebuilds and publishes it on every push to `claude/solutions-women-redesign-3kz2qf`. Settings are in `vercel.json`: clean URLs, redirects from the old Wix URLs, and cache headers.
+The site is hosted on **GitHub Pages** at https://solutionsforwomen.net. Every push to `claude/solutions-women-redesign-3kz2qf` rebuilds and publishes it through `.github/workflows/pages.yml`.
 
-- **Domain:** registered at GoDaddy, which also runs the DNS. Only the website records point to Vercel: an `A` record for `@` and a `CNAME` for `www`, using the values shown in Vercel under **Settings, Domains**.
+- **Domain:** registered at GoDaddy, which also runs the DNS. Only the website records point to GitHub: four `A` records for `@` (`185.199.108.153` to `185.199.111.153`), and a `CNAME` for `www` pointing to `sohailguller.github.io`.
 - **Email:** runs on Google Workspace through the `MX` records at GoDaddy. Never change the nameservers or the MX records. The `pay` subdomain record is also in use; leave it alone.
-- **Fallback hosting:** GitHub Pages (`.github/workflows/pages.yml`, run by hand) and Netlify (`netlify.toml`) also work without code changes. For a sub-path host such as `username.github.io/repo`, set `BASE_PATH`; `scripts/rebase.mjs` then prefixes the internal links.
+- **Custom domain and HTTPS:** set under **Settings, Pages** in this repository. If the certificate ever gets stuck, remove the custom domain, wait a few minutes, and add it again.
+- **Moving hosts:** `vercel.json` and `netlify.toml` let the site move to Vercel or Netlify without code changes. Point the same two DNS records at the new host.
