@@ -5,7 +5,7 @@ export const site = {
   tagline: 'Walking the road together',
   description:
     'Solutions for Women is a San Francisco nonprofit that supports and connects women to resources, encourages emotional wellness and promotes education so women aspire to become leaders in their community.',
-  url: 'https://www.solutionsforwomen.net',
+  url: 'https://solutionsforwomen.net',
   ein: '45-5163133',
   founded: 2010,
   city: 'San Francisco, CA',

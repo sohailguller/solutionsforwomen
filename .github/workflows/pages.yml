@@ -1,4 +1,4 @@
-# Publishes the site to GitHub Pages at https://www.solutionsforwomen.net
+# Publishes the site to GitHub Pages at https://solutionsforwomen.net
 # (custom domain set in the repository's Settings, Pages).
 name: Deploy to GitHub Pages
 
@@ -20,7 +20,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     env:
-      SITE_URL: https://www.solutionsforwomen.net
+      SITE_URL: https://solutionsforwomen.net
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4

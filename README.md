@@ -70,7 +70,7 @@ The site is hosted on GitHub Pages. Every push to `claude/solutions-women-redesi
 
 - **Domain:** registered and managed at GoDaddy. Only the website records point to GitHub Pages: four `A` records for `@`, and a `CNAME` for `www` pointing to `sohailguller.github.io`.
 - **Email:** runs on Google Workspace through the `MX` records at GoDaddy. Never change the nameservers or the MX records.
-- **Custom domain:** set under **Settings, Pages** in this repository, with **Enforce HTTPS** on.
+- **Custom domain:** `solutionsforwomen.net`, set under **Settings, Pages** in this repository, with **Enforce HTTPS** on. `www` redirects to it.
 - **Old links:** old Wix URLs such as `/team` and `/events-1/fleet-week-2026` redirect through the `redirects` setting in `astro.config.mjs`.
 - **Sub-path hosting:** to host under a sub-path (for example `username.github.io/repo`), set `BASE_PATH` in the workflow. `scripts/rebase.mjs` then prefixes the internal links.
 
