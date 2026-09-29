@@ -1,13 +1,12 @@
 import { defineConfig } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
 
-// BASE_PATH and SITE_URL are set by the GitHub Pages preview workflow.
-// Production builds (Netlify) use the defaults.
+// Production (Vercel) uses the defaults. BASE_PATH and SITE_URL are only set
+// by the optional GitHub Pages workflow when hosting under a sub-path.
 export default defineConfig({
   site: process.env.SITE_URL || 'https://solutionsforwomen.net',
   base: process.env.BASE_PATH || '/',
   trailingSlash: 'never',
-  build: { format: 'file' },
   integrations: [sitemap()],
   // Keep links to the previous Wix site working on any host.
   redirects: {

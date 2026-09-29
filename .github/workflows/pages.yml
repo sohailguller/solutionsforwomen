@@ -1,10 +1,8 @@
-# Publishes the site to GitHub Pages at https://solutionsforwomen.net
-# (custom domain set in the repository's Settings, Pages).
-name: Deploy to GitHub Pages
+# Optional fallback: publishes the site to GitHub Pages when run by hand
+# (Actions tab, "Run workflow"). The live site is hosted on Vercel.
+name: Deploy to GitHub Pages (manual)
 
 on:
-  push:
-    branches: [claude/solutions-women-redesign-3kz2qf]
   workflow_dispatch:
 
 permissions:
