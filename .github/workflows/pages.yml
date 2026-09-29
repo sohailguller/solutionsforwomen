@@ -1,6 +1,6 @@
-# Publishes a preview of the site to GitHub Pages:
-# https://sohailguller.github.io/solutionsforwomen
-name: Deploy preview to GitHub Pages
+# Publishes the site to GitHub Pages at https://www.solutionsforwomen.net
+# (custom domain set in the repository's Settings, Pages).
+name: Deploy to GitHub Pages
 
 on:
   push:
@@ -20,9 +20,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     env:
-      BASE_PATH: /solutionsforwomen
-      SITE_URL: https://sohailguller.github.io
-      PUBLIC_PREVIEW: 'true'
+      SITE_URL: https://www.solutionsforwomen.net
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4

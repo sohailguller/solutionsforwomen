@@ -9,6 +9,14 @@ export default defineConfig({
   trailingSlash: 'never',
   build: { format: 'file' },
   integrations: [sitemap()],
+  // Keep links to the previous Wix site working on any host.
+  redirects: {
+    '/team': '/who-we-are#board',
+    '/events-1/fleet-week-2026': '/events/fleet-week-2026',
+    '/about-test': '/about',
+    '/donate': '/support-us',
+    '/home': '/',
+  },
   image: {
     responsiveStyles: false,
   },
