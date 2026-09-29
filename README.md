@@ -64,18 +64,14 @@ The contact form, the monthly-updates sign-up and the volunteer sign-up are emai
 
 Forms send in the background and show a confirmation in place. Without JavaScript, they fall back to a normal post and return to `/thank-you`.
 
-## Deploying
+## Hosting and domain
 
-`netlify.toml` holds the build settings, cache headers and redirects from the old Wix URLs, such as `/team` and `/events-1/fleet-week-2026`. To deploy:
+The site is hosted on GitHub Pages. Every push to `claude/solutions-women-redesign-3kz2qf` rebuilds and publishes it through `.github/workflows/pages.yml`.
 
-1. Connect this repository in Netlify.
-2. Point the `solutionsforwomen.net` domain at Netlify.
-3. Once DNS has switched over, cancel the Wix plan.
+- **Domain:** registered and managed at GoDaddy. Only the website records point to GitHub Pages: four `A` records for `@`, and a `CNAME` for `www` pointing to `sohailguller.github.io`.
+- **Email:** runs on Google Workspace through the `MX` records at GoDaddy. Never change the nameservers or the MX records.
+- **Custom domain:** set under **Settings, Pages** in this repository, with **Enforce HTTPS** on.
+- **Old links:** old Wix URLs such as `/team` and `/events-1/fleet-week-2026` redirect through the `redirects` setting in `astro.config.mjs`.
+- **Sub-path hosting:** to host under a sub-path (for example `username.github.io/repo`), set `BASE_PATH` in the workflow. `scripts/rebase.mjs` then prefixes the internal links.
 
-## Preview on GitHub Pages
-
-Every push to `claude/solutions-women-redesign-3kz2qf` publishes a preview to https://sohailguller.github.io/solutionsforwomen using `.github/workflows/pages.yml`.
-
-- The preview build sets `BASE_PATH`, and `scripts/rebase.mjs` prefixes internal links with it.
-- The preview is hidden from search engines. Forms and donations work there as they will on the live site.
-- If a deploy fails with "Pages not enabled", open **Settings, Pages** in the repository, set **Source** to **GitHub Actions**, then re-run the workflow.
+`netlify.toml` is kept so the site can move to Netlify later without changes.
