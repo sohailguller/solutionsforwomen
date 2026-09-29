@@ -7,6 +7,9 @@ export default defineConfig({
   site: process.env.SITE_URL || 'https://solutionsforwomen.net',
   base: process.env.BASE_PATH || '/',
   trailingSlash: 'never',
+  // Pages build to about.html etc., which GitHub Pages, Netlify and Vercel
+  // (cleanUrls) all serve at /about without a redirect.
+  build: { format: 'file' },
   integrations: [sitemap()],
   // Keep links to the previous Wix site working on any host.
   redirects: {
