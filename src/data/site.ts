@@ -18,9 +18,9 @@ export const site = {
     phone: '415-572-2873',
   },
 
-  // PayPal donate page (one-time, monthly or yearly gifts).
-  donateUrl:
-    'https://www.paypal.com/donate?token=r6uYM71cuviaTZI_DgtL7lYCVL9DxeLQtCjosqdstAjI4XugZWFlzPio-6lzEQj2ccwL3FBh3JCDWvSL',
+  // PayPal donate button link. Use a permanent `hosted_button_id` link, never a
+  // `donate?token=` link: those are single checkout sessions and expire.
+  donateUrl: 'https://www.paypal.com/donate/?hosted_button_id=FHBVDZDJLFXT4',
 
   // Where contact, newsletter and volunteer submissions are emailed (via FormSubmit.co).
   formsTo: 'info@solutionsforwomen.net',
