@@ -46,8 +46,10 @@ const past = [
             <div class="date" aria-hidden="true">
               <span class="m">{new Date(e.start).toLocaleString('en-US', { month: 'short', timeZone: 'America/Los_Angeles' })}</span>
               <span class="d">
-                {new Date(e.start).toLocaleString('en-US', { day: 'numeric', timeZone: 'America/Los_Angeles' })}–
-                {new Date(e.end).toLocaleString('en-US', { day: 'numeric', timeZone: 'America/Los_Angeles' })}
+                {[e.start, e.end]
+                  .map((d) => new Date(d).toLocaleString('en-US', { day: 'numeric', timeZone: 'America/Los_Angeles' }))
+                  .filter((d, i, all) => all.indexOf(d) === i)
+                  .join('–')}
               </span>
             </div>
             <div class="body">
@@ -66,11 +68,23 @@ const past = [
                   <dt>Where</dt>
                   <dd>{e.location}</dd>
                 </div>
+                {e.host && (
+                  <div>
+                    <dt>Host</dt>
+                    <dd>{e.host}</dd>
+                  </div>
+                )}
               </dl>
               <div class="actions">
-                <a class="btn btn--primary" href={`/events/${e.slug}#volunteer`}>
-                  Sign up to volunteer
-                </a>
+                {e.registerUrl ? (
+                  <a class="btn btn--primary" href={e.registerUrl} rel="noopener">
+                    Register on Eventbrite
+                  </a>
+                ) : e.volunteer ? (
+                  <a class="btn btn--primary" href={`/events/${e.slug}#volunteer`}>
+                    Sign up to volunteer
+                  </a>
+                ) : null}
                 <a class="btn btn--outline" href={`/events/${e.slug}`}>
                   Details
                 </a>

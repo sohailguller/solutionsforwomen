@@ -74,6 +74,42 @@ const mosaic = [
     </figure>
   </section>
 
+  {
+    next && (
+      <section class="section event section--white" aria-labelledby="event-h">
+        <div class="wrap event-grid">
+          <div class="event-copy">
+            <span class="label">{next.host ? 'Upcoming community event' : 'Upcoming event'}</span>
+            <h2 id="event-h">{next.title}</h2>
+            <p class="event-when">
+              {next.dateLabel}, {next.timeLabel}
+              <br />
+              {next.location}
+            </p>
+            <p>{next.summary}</p>
+            <div class="actions">
+              {next.registerUrl ? (
+                <a class="btn btn--primary" href={next.registerUrl} rel="noopener">
+                  Register on Eventbrite
+                </a>
+              ) : (
+                <a class="btn btn--primary" href={`/events/${next.slug}`}>
+                  {next.volunteer ? 'Sign up to volunteer' : 'Event details'}
+                </a>
+              )}
+              <a class="btn btn--outline" href={next.registerUrl ? `/events/${next.slug}` : '/events'}>
+                {next.registerUrl ? 'Event details' : 'All events'}
+              </a>
+            </div>
+          </div>
+          <figure class="event-pic">
+            <Photo src={next.image} alt={next.imageAlt} sizes="(min-width: 64rem) 26rem, 90vw" />
+          </figure>
+        </div>
+      </section>
+    )
+  }
+
   <section class="section mission">
     <div class="wrap mission-grid">
       <span class="label">Our mission</span>
@@ -106,12 +142,12 @@ const mosaic = [
       </header>
 
       <article class="feature" id="support-groups">
-        <figure class="feature-pic">
+        <figure class="feature-pic feature-pic--flyer">
           <Photo
-            src="about/2022-support-circle"
-            alt="Women seated in a circle during a support group"
-            sizes="(min-width: 64rem) 50vw, 100vw"
-            class="img-cover"
+            src="programs/support-group-flyer"
+            alt="Solutions for Women weekly women's support group: every Tuesday, 6:30 to 8:00 pm, on Zoom. Meeting ID 211 052 282, passcode 711010."
+            sizes="(min-width: 64rem) 30rem, 90vw"
+            widths={[480, 720, 1024]}
           />
         </figure>
         <div class="feature-copy">
@@ -163,36 +199,6 @@ const mosaic = [
       </blockquote>
     </div>
   </section>
-
-  {
-    next && (
-      <section class="section event" aria-labelledby="event-h">
-        <div class="wrap event-grid">
-          <div class="event-copy">
-            <span class="label">Upcoming event</span>
-            <h2 id="event-h">{next.title}</h2>
-            <p class="event-when">
-              {next.dateLabel}
-              <br />
-              {next.location}
-            </p>
-            <p>{next.summary}</p>
-            <div class="actions">
-              <a class="btn btn--primary" href={`/events/${next.slug}`}>
-                Sign up to volunteer
-              </a>
-              <a class="btn btn--outline" href="/events">
-                All events
-              </a>
-            </div>
-          </div>
-          <figure class="event-pic">
-            <Photo src={next.image} alt={next.imageAlt} sizes="(min-width: 64rem) 36vw, 100vw" />
-          </figure>
-        </div>
-      </section>
-    )
-  }
 
   <section class="section section--rule paths" aria-label="Ways to connect">
     <div class="wrap">
@@ -346,6 +352,12 @@ const mosaic = [
     aspect-ratio: 4 / 3;
     overflow: hidden;
   }
+  .feature-pic--flyer {
+    aspect-ratio: auto;
+    max-width: 30rem;
+    justify-self: center;
+    box-shadow: 0 1px 2px rgba(31, 28, 24, 0.14);
+  }
   .feature-copy {
     max-width: 34rem;
   }
@@ -415,7 +427,8 @@ const mosaic = [
     line-height: 1.3;
   }
   .event-pic {
-    max-width: 26rem;
+    width: 100%;
+    max-width: 24rem;
     justify-self: center;
     box-shadow: 0 1px 2px rgba(31, 28, 24, 0.12);
   }

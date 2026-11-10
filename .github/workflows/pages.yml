@@ -5,6 +5,9 @@ name: Deploy to GitHub Pages
 on:
   push:
     branches: [main]
+  # Rebuild daily so past events drop off the homepage and Events page.
+  schedule:
+    - cron: '17 9 * * *'
   workflow_dispatch:
 
 permissions:

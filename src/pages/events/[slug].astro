@@ -19,9 +19,10 @@ const schema = {
   endDate: event.end,
   eventAttendanceMode: 'https://schema.org/OfflineEventAttendanceMode',
   eventStatus: 'https://schema.org/EventScheduled',
-  location: { '@type': 'Place', name: "Fisherman's Wharf", address: 'Fisherman’s Wharf, San Francisco, CA' },
+  location: { '@type': 'Place', name: event.location.split(',')[0], address: event.location },
   description: event.summary,
-  organizer: { '@type': 'Organization', name: site.name, url: site.url },
+  organizer: event.host ? { '@type': 'Organization', name: event.host } : { '@type': 'Organization', name: site.name, url: site.url },
+  ...(event.registerUrl ? { offers: { '@type': 'Offer', url: event.registerUrl } } : {}),
 };
 ---
 
@@ -36,15 +37,32 @@ const schema = {
         <dl class="facts">
           <div><dt>When</dt><dd>{event.dateLabel}<br />{event.timeLabel}</dd></div>
           <div><dt>Where</dt><dd>{event.location}</dd></div>
-          <div>
-            <dt>Questions</dt>
-            <dd>
-              {site.director.name}<br />
-              <a href={`mailto:${site.director.email}`}>{site.director.email}</a><br />
-              <a href={tel(site.director.phone)}>{site.director.phone}</a>
-            </dd>
-          </div>
+          {event.host && <div><dt>Hosted by</dt><dd>{event.host}</dd></div>}
+          {
+            event.registerUrl ? (
+              <div>
+                <dt>Register</dt>
+                <dd>
+                  <a href={event.registerUrl} rel="noopener">Register on Eventbrite</a>
+                </dd>
+              </div>
+            ) : (
+              <div>
+                <dt>Questions</dt>
+                <dd>
+                  {site.director.name}<br />
+                  <a href={`mailto:${site.director.email}`}>{site.director.email}</a><br />
+                  <a href={tel(site.director.phone)}>{site.director.phone}</a>
+                </dd>
+              </div>
+            )
+          }
         </dl>
+        {event.registerUrl && (
+          <div class="actions register">
+            <a class="btn btn--primary" href={event.registerUrl} rel="noopener">Register on Eventbrite</a>
+          </div>
+        )}
         <div class="prose details">
           {event.details.map((d) => <p>{d}</p>)}
         </div>
@@ -63,10 +81,14 @@ const schema = {
         <figure class="flyer">
           <Photo src={event.image} alt={event.imageAlt} sizes="(min-width: 64rem) 26rem, 90vw" widths={[400, 496]} loading="eager" />
         </figure>
-        <figure class="side-pic">
-          <Photo src="events/fleet-week-01" alt="A volunteer at the Solutions for Women Fleet Week booth" sizes="(min-width: 64rem) 26rem, 90vw" widths={[400, 640, 900]} />
-          <figcaption>Volunteering at Fleet Week 2024.</figcaption>
-        </figure>
+        {
+          event.slug.startsWith('fleet-week') && (
+            <figure class="side-pic">
+              <Photo src="events/fleet-week-01" alt="A volunteer at the Solutions for Women Fleet Week booth" sizes="(min-width: 64rem) 26rem, 90vw" widths={[400, 640, 900]} />
+              <figcaption>Volunteering at Fleet Week 2024.</figcaption>
+            </figure>
+          )
+        }
       </aside>
     </div>
   </article>
@@ -122,6 +144,9 @@ const schema = {
     margin: 0;
     min-width: 0;
     overflow-wrap: anywhere;
+  }
+  .register {
+    margin: 0 0 2.5rem;
   }
   .details p {
     color: var(--ink-2);
